@@ -178,26 +178,10 @@ async def start(bot, m):
                 output_dict[subject_title][video_title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {video_title}:{video_link}\n")
-                	   
-    with open(f"{course_title}.json", 'w') as f:
-        f.write(json.dumps(output_dict, indent=4))
-    with open('template.html', 'r') as f:
-        template_str = f.read()
-    template = Template(template_str)
-    html = template.render(title=course_title, topics=output_dict, type="videos")
-    with open(f"{course_title}.html", 'w') as f:
-        f.write(html)
-        HTML(filename=f"{course_title}.html").write_pdf(f"{course_title}.pdf")
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
-    file2 = InputMediaDocument(f"{course_title}.json")
-    file3 = InputMediaDocument(f"{course_title}.html", caption = f"**API :** `{raw_text05}`\n\n**AppName :-** `{caption_details}`\n**BatchName :-** `{course_title}`")
-    file4 = InputMediaDocument(f"{course_title}.pdf", caption = f"**Batch :** {course_title}")
-    await bot.send_media_group(m.chat.id, [file1, file3])
-    await bot.send_media_group(my_data, [file1, file3])    
+    await bot.send_media_group(m.chat.id, [file1])
+    await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
-    os.remove(f"{course_title}.json")
-    os.remove(f"{course_title}.html")
-    os.remove(f"{course_title}.pdf")
     await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
