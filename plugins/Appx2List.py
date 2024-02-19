@@ -100,7 +100,7 @@ async def start(bot, m):
     cool = ""
     for data in topicid:
         #aa = f" `{data['id']}` » {data['course_name']}\n\n"
-        aa = f" `{data['id']}` » {data['course_name']} 💲 {data['price']}\n\n"
+        aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
