@@ -122,7 +122,7 @@ async def start(bot, m):
     html1 = scraper.get("https://"+raw_text05+"/get/mycoursev2", headers=hdr, params=params).json()["data"]
     cool = ""
     for data in html1:
-        aa = f" {data['id']} » {data['course_name']} 💲 {data['price']}\n\n"
+        aa = f" {data['id']} » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
