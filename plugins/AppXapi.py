@@ -164,20 +164,22 @@ async def start(bot, m):
             gg = output5["data"]
             for video in gg:
                 video_title = video["Title"].replace(':', '')
-                video_id = video["video_id"]
+                #video_id = video["video_id"]
                 video_link = video["download_link"].replace('NceL4AYD', '3iwbS6ep').replace("-NceL4AYD", "-gg65VkH4")
                 pdf_link = video.get("pdf_link", "")
                 pdf_link2 = video.get("pdf_link2", "")                                                                                   
                 if pdf_link and pdf_link != video_link:
-                     video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link}" 
+                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
+                     video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link_decrypted}" 
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
                 elif not video_link:
-                     video_link = f"{video_id}"
-                output_dict[subject_title][video_title] = video_link
+                     video_link_dec = decrypt(download_link.split(":")[0])
+                     #video_link = f"{video_id}"
+                output_dict[subject_title][video_title] = video_link_dec
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"{subject_title} {video_title}:{video_link}\n")
+                    f.write(f"{subject_title} {video_title}:{video_link_dec}\n")
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
