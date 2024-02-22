@@ -175,7 +175,7 @@ async def start(bot, m):
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
                 elif not video_link:
-                     video_link_dec = decrypt(download_link.split(":")[0])
+                     video_link_dec = decrypt(video_link.split(":")[0])
                      #video_link = f"{video_id}"
                 output_dict[subject_title][video_title] = video_link_dec
                 with open(f"{course_title}.txt", 'a') as f:
