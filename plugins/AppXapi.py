@@ -177,7 +177,7 @@ async def start(bot, m):
                 elif not video_link:
                      video_link_dec = decrypt(video_link.split(":")[0])
                      #video_link = f"{video_id}"
-                output_dict[subject_title][video_title] = video_link_dec
+                output_dict[subject_title][video_title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {video_title}:{video_link_dec}\n")
  
