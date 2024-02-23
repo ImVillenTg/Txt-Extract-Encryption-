@@ -159,7 +159,7 @@ async def start(bot, m):
             tsids_list.append(tsids)
         for tsids in tsids_list:
             scraper = cloudscraper.create_scraper()            
-            html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv2?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
+            html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
             output5 = json.loads(html5)
             gg = output5["data"]
             for video in gg:
