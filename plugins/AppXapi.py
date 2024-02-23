@@ -167,10 +167,10 @@ async def start(bot, m):
                     file_link = (data["file_link"])
                     title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                     video_link = f'{title.replace(":","")} : {file_link}'
-                     if pdf_link and (pdf_link != file_link):
+                    if pdf_link and (pdf_link != file_link):
                         video_link += f'\n{title.replace(":","")} (pdf) : {pdf_link}'
-                     if pdf_link2:
-                         video_link += f'\n{title.replace(":","")} (pdf-2) : {pdf_link2}'
+                    if pdf_link2:
+                        video_link += f'\n{title.replace(":","")} (pdf-2) : {pdf_link2}'
                 output_dict[subject_title][title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {title}:{video_link}\n")
