@@ -167,9 +167,9 @@ async def start(bot, m):
                     title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                     video_link = f'{title.replace(":","")} : {file_link}'
                     if pdf_link and (pdf_link != file_link):
-                           video_link += f'\n{title.replace(":","")} (pdf) : {pdf_link}}'
+                           video_link += f'\nPDF {title.replace(":","")}: {pdf_link}'
                     if pdf_link2:
-                        video_link += f'\n{title.replace(":","")} (pdf-2) : {pdf_link2}'
+                        video_link += f'\nPDF-2 {title.replace(":","")}: {pdf_link2}'
                     open(f"{course_title}.txt", "a").write(f"{video_link}\n")
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
