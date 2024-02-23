@@ -59,7 +59,7 @@ async def start(bot, m):
         'Auth-Key': 'appxapi',
         'User-ID': '-2',
         'language': 'en',
-        'dev5',
+        'device_type': 'ANDROID',
         'Host': f'{raw_text05}',
         'Connection': 'Keep-Alive',
         #'Accept-Encoding': 'gzip, deflate',
