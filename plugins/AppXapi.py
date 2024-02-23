@@ -163,13 +163,13 @@ async def start(bot, m):
             output5 = json.loads(html5)
             gg = output5["data"]
             for video in gg:
-                #video_title, download_link, pdf_link, pdf_link2 = (video["Title"]), decrypt(download_link.split(":")[0]), decrypt((video["pdf_link"]).split(":")[0]), decrypt((video["pdf_link2"]).split(":")[0])
+                #video_title, video_link, pdf_link, pdf_link2 = (video["Title"]), decrypt(download_link.split(":")[0]), decrypt((video["pdf_link"]).split(":")[0]), decrypt((video["pdf_link2"]).split(":")[0])
                 video_title = video["Title"].replace(':', '')
                 video_id = video["video_id"]
                 video_link = video["download_link"].replace('NceL4AYD', '3iwbS6ep').replace("-NceL4AYD", "-gg65VkH4")
                 pdf_link = video.get("pdf_link", "")
                 pdf_link2 = video.get("pdf_link2", "")
-                video_title, download_link, pdf_link, pdf_link2 = (video["Title"]), decrypt(download_link.split(":")[0]), decrypt((video["pdf_link"]).split(":")[0]), decrypt((video["pdf_link2"]).split(":")[0])
+                video_title, video_link, pdf_link, pdf_link2 = (video["Title"]), decrypt(download_link.split(":")[0]), decrypt((video["pdf_link"]).split(":")[0]), decrypt((video["pdf_link2"]).split(":")[0])
                 if pdf_link and pdf_link != video_link:
                      video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link}" 
                 if pdf_link2:
