@@ -162,19 +162,18 @@ async def start(bot, m):
             html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
             output5 = json.loads(html5)
             gg = output5["data"]
-            for video in gg:
-                video_title = video["Title"].replace(':', '')
-                video_link = video["download_link"].replace('NceL4AYD', '3iwbS6ep').replace("-NceL4AYD", "-gg65VkH4")
-                pdf_link = video.get("pdf_link", "")
-                pdf_link2 = video.get("pdf_link2", "")
-                video_title, video_link, pdf_link, pdf_link2 = (video["Title"]), decrypt(video_link.split(":")[0]), decrypt((video["pdf_link"]).split(":")[0]), decrypt((video["pdf_link2"]).split(":")[0])
-                if pdf_link and pdf_link != video_link:
-                     video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link}" 
-                if pdf_link2:
-                    video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2}"
-                output_dict[subject_title][video_title] = video_link
+            for data in gg:
+                if ((data["material_type"]) != "VIDEO") and ((data["file_link"]) != ""):
+                    file_link = (data["file_link"])
+                    title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
+                    video_link = f'{title.replace(":","")} : {file_link}'
+                     if pdf_link and (pdf_link != file_link):
+                        video_link += f'\n{title.replace(":","")} (pdf) : {pdf_link}'
+                     if pdf_link2:
+                         video_link += f'\n{title.replace(":","")} (pdf-2) : {pdf_link2}'
+                output_dict[subject_title][title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"{subject_title} {video_title}:{video_link}\n")
+                    f.write(f"{subject_title} {title}:{video_link}\n")
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
