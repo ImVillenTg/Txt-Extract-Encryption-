@@ -73,10 +73,10 @@ async def start(bot, m):
         'User-ID': '-2',
         'language': 'en',
         'device_type': 'ANDROID',
-        #'Content-Length': '225',
+        'Content-Length': '225',
         'Host': f'{raw_text05}',
         'Connection': 'Keep-Alive',
-        #'Accept-Encoding': 'gzip, deflate',
+        'Accept-Encoding': 'gzip, deflate',
         'User-Agent': 'okhttp/4.9.1',
     }
     
