@@ -72,12 +72,9 @@ async def start(bot, m):
         'Auth-Key': 'appxapi',
         'User-ID': '-2',
         'language': 'en',
-        'Content-Type' : 'application/json',
         'device_type': 'ANDROID',
-        'Content-Length': '732',
         'Host': f'{raw_text05}',
         'Connection': 'Keep-Alive',
-        'Accept-Encoding': 'gzip, deflate',
         'User-Agent': 'okhttp/4.9.1',
     }
     
@@ -108,11 +105,9 @@ async def start(bot, m):
         'User-ID': userid,
         'Authorization': token,
         'language': 'en',
-        'device_type': 'ANDROID',
         'Host': f'{raw_text05}',
-        'Content-Type' : 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Connection': 'Keep-Alive',
-        'Accept-Encoding': 'gzip, deflate',
         'User-Agent': 'okhttp/4.9.1',
     }        
     scraper = cloudscraper.create_scraper()
