@@ -74,7 +74,7 @@ async def start(bot, m):
         'language': 'en',
         'Content-Type' : 'application/json',
         'device_type': 'ANDROID',
-        'Content-Length': '225',
+        'Content-Length': '732',
         'Host': f'{raw_text05}',
         'Connection': 'Keep-Alive',
         'Accept-Encoding': 'gzip, deflate',
@@ -110,8 +110,9 @@ async def start(bot, m):
         'language': 'en',
         'device_type': 'ANDROID',
         'Host': f'{raw_text05}',
+        'Content-Type' : 'application/json',
         'Connection': 'Keep-Alive',
-        #'Accept-Encoding': 'gzip, deflate',
+        'Accept-Encoding': 'gzip, deflate',
         'User-Agent': 'okhttp/4.9.1',
     }        
     scraper = cloudscraper.create_scraper()
