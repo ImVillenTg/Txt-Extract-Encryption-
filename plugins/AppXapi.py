@@ -72,6 +72,7 @@ async def start(bot, m):
         'Auth-Key': 'appxapi',
         'User-ID': '-2',
         'language': 'en',
+        'Content-Type' : 'application/json',
         'device_type': 'ANDROID',
         'Content-Length': '225',
         'Host': f'{raw_text05}',
