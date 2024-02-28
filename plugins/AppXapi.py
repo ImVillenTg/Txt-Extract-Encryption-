@@ -34,29 +34,17 @@ def decrypt(text):
     iv_key = 'fedcba9876543210'
     iv_key = bytearray(iv_key.encode())
     bs = 16
-    
-    # Use PKCS7 padding
-    PADDING = lambda s: s + (bs - len(s) % bs) * bytes([bs - len(s) % bs])
-    
+    PADDING = lambda s: s + (bs - len(s) % bs) * chr(bs - len(s) % bs)
     generator = AES.new(key, AES.MODE_CBC, iv_key)
-    
-    # Pad the base64 string 
-    text += '=' * ((4 - len(text) % 4) % 4)
-    
-    try:
-        decrpyt_bytes = base64.b64decode(text)
-    except base64.binascii.Error:
-        return 'Invalid base64-encoded string'
-    
-    # Decrypt using AES
+    text += (len(text) % 4) * '='
+    decrpyt_bytes = base64.b64decode(text) #outputBase64
+    # Decrpyt_bytes = binascii.a2b_hex(text) #output Hex
     meg = generator.decrypt(decrpyt_bytes)
-    
-    # Remove the PKCS7 padding after decoding
+    # Remove the illegal characters after decoding
     try:
-        result = meg[:-meg[-1]].decode('utf-8')
+        result = re.compile('[\\x00-\\x08\\x0b-\\x0c\\x0e-\\x1f\n\r\t]').sub('', meg.decode())
     except Exception:
         result = 'Decoding failed, please try again!'
-    
     return result
 
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
