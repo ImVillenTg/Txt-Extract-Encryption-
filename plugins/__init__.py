@@ -25,11 +25,6 @@ async def account_login(bot: Client, m: Message):
         return
     editable = await m.reply_text(f"Hello Bruh 🔥 [{m.from_user.first_name}](tg://user?id={m.from_user.id})\n\n**What's Up !**")
 
-@bot.on_message(filters.command("super"))
-async def start(bot, m):
-    editable = await m.reply_text(f"Welcome [{m.from_user.first_name}](tg://user?id={m.from_user.id}) Bruh 🔥\n\nI'm Super **ROBOT**🤖 Made With Love By My Master 𝐑𝐄𝐗𝐎𝐃𝐀𝐒 🇮🇳 !!\n\n**Press** ✅ /api For Appx ⚠️ Application Text File Generation !!\n\n**Press** ✅ /pro For **Download 📥 & Upload 📤** Txt Files !! \n\n**Press** ✅ /token For **Classplus 🔰 txt Conversion into Videos and Pdf Links** Separately !!")
-    
-
 @bot.on_message(filters.command("cancel") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def restart_handler(_, m):
     if m.from_user.id not in AUTH_USERS:
