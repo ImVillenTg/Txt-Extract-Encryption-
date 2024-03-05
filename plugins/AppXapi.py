@@ -160,10 +160,11 @@ async def start(bot, m):
             gg = output5["data"]
             for video in gg:
                 video_title = video["Title"].replace(':', '')
-                video_link = decrypt((video["download_link"]).split(":")[0])
+                file_link = video["file_link"]
+                file_link = decrypt((video["file_link"]).split(":")[0])
                 pdf_link = decrypt((video["pdf_link"]).split(":")[0])
                 pdf_link2 = decrypt((video["pdf_link2"]).split(":")[0])                                                                                   
-                if pdf_link and pdf_link != video_link:
+                if pdf_link and pdf_link != file_link:
                     video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link}" 
                 if pdf_link2:
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2}"
