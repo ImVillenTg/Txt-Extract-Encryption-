@@ -34,32 +34,19 @@ def decrypt(text):
     iv_key = 'fedcba9876543210'
     iv_key = bytearray(iv_key.encode())
     bs = 16
-    
-    # Use PKCS7 padding
-    PADDING = lambda s: s + (bs - len(s) % bs) * bytes([bs - len(s) % bs])
-    
+    PADDING = lambda s: s + (bs - len(s) % bs) * chr(bs - len(s) % bs)
     generator = AES.new(key, AES.MODE_CBC, iv_key)
-    
-    # Pad the base64 string 
-    text += '=' * ((4 - len(text) % 4) % 4)
-    
-    try:
-        decrpyt_bytes = base64.b64decode(text)
-    except base64.binascii.Error:
-        return 'Invalid base64-encoded string'
-    
-    # Decrypt using AES
+    text += (len(text) % 4) * '='
+    decrpyt_bytes = base64.b64decode(text) #outputBase64
+    # Decrpyt_bytes = binascii.a2b_hex(text) #output Hex
     meg = generator.decrypt(decrpyt_bytes)
-    
-    # Remove the PKCS7 padding after decoding
+    # Remove the illegal characters after decoding
     try:
-        result = meg[:-meg[-1]].decode('utf-8')
+        result = re.compile('[\\x00-\\x08\\x0b-\\x0c\\x0e-\\x1f\n\r\t]').sub('', meg.decode())
     except Exception:
         result = 'Decoding failed, please try again!'
-    
     return result
     
-
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 #@bot.on_message(filters.command("api"))
 async def start(bot, m):
@@ -165,7 +152,7 @@ async def start(bot, m):
             for data in gg:
                 if ((data["material_type"]) != "VIDEO") and ((data["file_link"]) != ""):
                     file_link = (data["file_link"])
-                    title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt((data["download_link"]).split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
+                    title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                     video_link = f'{subject_title} {title.replace(":", "")}:{file_link}'
                     if pdf_link and (pdf_link != file_link):
                         video_link += f'\n{subject_title} {title.replace(":", "")}:{pdf_link}'
