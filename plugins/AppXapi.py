@@ -150,7 +150,7 @@ async def start(bot, m):
             output5 = json.loads(html5)
             gg = output5["data"]
             for data in gg:
-                if ((data["material_type"]) != "VIDEO") and ((data["file_link"]) != ""):
+                if ((data["material_type"]) != "PDF") and ((data["file_link"]) != ""):
                     file_link = (data["file_link"])
                     title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                     video_link = f'{subject_title} {title.replace(":", "")}:{file_link}'
