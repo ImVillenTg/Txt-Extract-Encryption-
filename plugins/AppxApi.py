@@ -172,7 +172,7 @@ async def start(bot, m):
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link_decrypted}" 
                     seen_pdf_links.add(pdf_link)
-                if pdf_link2 and and pdf_link2 not in seen_pdf_links:
+                if pdf_link2 and pdf_link2 not in seen_pdf_links:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
                     seen_pdf_links.add(pdf_link2)
