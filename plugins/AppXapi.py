@@ -150,15 +150,14 @@ async def start(bot, m):
             output5 = json.loads(html5)
             gg = output5["data"]
             for data in gg:
-                if ((data["material_type"]) != "PDF") and ((data["file_link"]) != ""):
-                    file_link = (data["file_link"])
-                    title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
-                    video_link = f'{subject_title} {title.replace(":", "")}:{file_link}'
-                    if pdf_link and (pdf_link != file_link):
-                        video_link += f'\n{subject_title} {title.replace(":", "")}:{pdf_link}'
-                    if pdf_link2:
-                        video_link += f'\n{subject_title} {title.replace(":", "")}:{pdf_link2}'
-                    open(f"{course_title}.txt", "a").write(f"{video_link}\n")                                             
+                file_link = (data["file_link"])
+                title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(data.get("download_link", "").split(":")[0]), decrypt(data.get("pdf_link", "").split(":")[0]), decrypt(data.get("pdf_link2", "").split(":")[0])
+                video_link = f'{subject_title} {title.replace(":", "")}:{file_link}'
+                if pdf_link and (pdf_link != file_link):
+                    video_link += f'\n{subject_title} {title.replace(":", "")}:{pdf_link}'
+                if pdf_link2:
+                    video_link += f'\n{subject_title} {title.replace(":", "")}:{pdf_link2}'
+                open(f"{course_title}.txt", "a").write(f"{video_link}\n")                                             
                 
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
