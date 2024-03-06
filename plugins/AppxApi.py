@@ -162,21 +162,17 @@ async def start(bot, m):
             html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
             output5 = json.loads(html5)
             gg = output5["data"]
-            seen_pdf_links = set()
+            
             for video in gg:
                 video_title = video["Title"].replace(':', '')
                 video_link = decrypt((video["download_link"]).split(":")[0])
                 pdf_link = video.get("pdf_link", "")
                 pdf_link2 = video.get("pdf_link2", "")                                                                                   
-                if pdf_link and pdf_link != video_link and pdf_link not in seen_pdf_links:
-                    pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link_decrypted}" 
-                    seen_pdf_links.add(pdf_link)
-                if pdf_link2 and pdf_link2 not in seen_pdf_links:
+                if pdf_link and pdf_link != video_link:
+                    video_link += f"\n{subject_title} {video_title} :{pdf_link}" 
+                if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
-                    seen_pdf_links.add(pdf_link2)
-                output_dict[subject_title][video_title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {video_title}:{video_link}\n")
  
