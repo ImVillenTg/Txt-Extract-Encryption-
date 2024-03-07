@@ -164,6 +164,7 @@ async def start(bot, m):
             gg = output5["data"]
             
             for video in gg:
+                video_id = video["video_id"]
                 video_title = video["Title"].replace(':', '')
                 video_link = decrypt((video["download_link"]).split(":")[0])
                 pdf_link = (video["pdf_link"])
@@ -175,7 +176,7 @@ async def start(bot, m):
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
                 elif not video_link:
-                    video_link += f"{video_link}"
+                    video_link += f"{video_id}"
                 output_dict[subject_title] [video_title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {video_title}:{video_link}\n")
