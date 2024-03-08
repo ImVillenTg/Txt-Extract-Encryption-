@@ -151,18 +151,15 @@ async def start(bot, m):
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
         vv = output4["data"]
-        for data in vv:
-            tsids = data['topicid']
-            topic_name = data["topic_name"].replace(':', '').replace('.', '') 
         tsids_list = []
         for data in vv:
+            tsids = data['topicid']
             tsids_list.append(tsids)
         for tsids in tsids_list:
             scraper = cloudscraper.create_scraper()            
             html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
             output5 = json.loads(html5)
             gg = output5["data"]
-            
             for video in gg:
                 video_title = video["Title"].replace(':', '')
                 fuck = video["download_link"]
@@ -171,12 +168,12 @@ async def start(bot, m):
                 pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n({subject_title}) ({topic_name}) {video_title} (pdf):{pdf_link_decrypted}"    
+                    video_link += f"\n({subject_title}) {video_title} (pdf):{pdf_link_decrypted}"    
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                    video_link += f"\n({subject_title}) ({topic_name}) {video_title} (pdf-2):{pdf_link2_decrypted}"
+                    video_link += f"\n({subject_title}) {video_title} (pdf-2):{pdf_link2_decrypted}"
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"({subject_title}) ({topic_name}) {video_title}:{video_link}\n")
+                    f.write(f"({subject_title}) {video_title}:{video_link}\n")
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
