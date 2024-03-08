@@ -164,10 +164,11 @@ async def start(bot, m):
             
             for video in gg:
                 video_title = video["Title"].replace(':', '')
-                video_link = decrypt((video["download_link"]).split(":")[0])
+                fuck = video["download_link"]
+                video_link = decrypt((fuck).split(":")[0])
                 pdf_link = video["pdf_link"]
                 pdf_link2 = video["pdf_link2"]
-                if pdf_link and decrypt(pdf_link.split(":")[0]) != video_link:
+                if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
                     video_link += f"\n({subject_title}) ({topic_name}) {video_title} (pdf):{pdf_link_decrypted}"    
                 if pdf_link2:
