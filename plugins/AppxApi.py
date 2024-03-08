@@ -147,7 +147,7 @@ async def start(bot, m):
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
-        topic_name = topic[topic_name"].replace(':', '')
+        topic_name = topic["topic_name"].replace(':', '')
         #await editable1.edit(f"Extracting....♻️**{subject_title}** please wait patiently📥")
         output_dict[subject_title] = {}        
         scraper = cloudscraper.create_scraper()
