@@ -149,7 +149,7 @@ async def start(bot, m):
         subject_title = topic["subject_name"].replace(':', '')
         topic_name = topic["topic_name"].replace(':', '')
         #await editable1.edit(f"Extracting....♻️**{subject_title}** please wait patiently📥")
-        output_dict[subject_title] = {}        
+        output_dict[subject_title] [topic_name] = {}        
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
