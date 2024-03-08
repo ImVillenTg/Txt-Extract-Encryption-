@@ -153,10 +153,10 @@ async def start(bot, m):
         vv = output4["data"]
         tsids_list = []
         for data in vv:
-            topic_name = data["topic_name"].replace(':', '')
             tsids = data['topicid']
             tsids_list.append(tsids)
         for tsids in tsids_list:
+            topic_name = tsids["topic_name"].replace(':', '')
             scraper = cloudscraper.create_scraper()            
             html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
             output5 = json.loads(html5)
