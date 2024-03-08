@@ -147,6 +147,7 @@ async def start(bot, m):
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
+        topic_name = topic[topic_name"].replace(':', '')
         #await editable1.edit(f"Extracting....♻️**{subject_title}** please wait patiently📥")
         output_dict[subject_title] = {}        
         scraper = cloudscraper.create_scraper()
@@ -164,22 +165,19 @@ async def start(bot, m):
             gg = output5["data"]
             
             for video in gg:
-                video_id = video["video_id"]
                 video_title = video["Title"].replace(':', '')
                 video_link = decrypt((video["download_link"]).split(":")[0])
-                pdf_link = (video["pdf_link"])
-                pdf_link2 = (video["pdf_link2"])
+                pdf_link = video["pdf_link"]
+                pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link!= video_link:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n{subject_title} {video_title} (pdf):{pdf_link_decrypted}"
+                    video_link += f"\n({topic_name}) {subject_title} {video_title} (pdf):{pdf_link_decrypted}"
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                    video_link += f"\n{subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
-                elif not video_link:
-                    video_link += f"{video_id}"
-                output_dict[subject_title] [video_title] = video_link
+                    video_link += f"\n({topic_name}) {subject_title} {video_title} (pdf-2):{pdf_link2_decrypted}"
+                output_dict([topic_name]) [subject_title] [video_title] = video_link
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"{subject_title} {video_title}:{video_link}\n")
+                    f.write(f"({topic_name}) {subject_title} {video_title}:{video_link}\n")
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
