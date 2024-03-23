@@ -2,8 +2,6 @@ import requests as r
 import re
 import json
 from handlers import *
-from weasyprint import HTML
-from jinja2 import Template
 from pyrogram.types import InputMediaDocument
 import subprocess
 from pyrogram.types.messages_and_media import message
@@ -64,7 +62,6 @@ def get_link(cid, pid, cname, raw_text05, hdr):
                   cid = (data["id"])
                   get_link(cid, pid, cname, raw_text05, hdr)                  
 @bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
-#@bot.on_message(filters.command("appx"))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**\nLike `Aman Vashisht Yodha Uc Live` etc")
     input01: Message = await bot.listen(editable.chat.id)
@@ -122,7 +119,8 @@ async def start(bot, m):
     html1 = scraper.get("https://"+raw_text05+"/get/mycoursev2", headers=hdr, params=params).json()["data"]
     cool = ""
     for data in html1:
-        aa = f" {data['id']} » {data['course_name']} ❇️ ₹{data['price']}\n\n"
+        batch_logo = (data["course_thumbnail"])
+        aa = f" {data['id']} » {data['course_name']} ✳️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
@@ -146,8 +144,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{cid}` `{cname}`")   
-       #file1 = InputMediaDocument(f"{cname}.txt", caption = f"**App Name :** {raw_text05.upper().replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "")}\n**Batch Name :** `{cid}` `{cname}`")
+        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{cid}` `{cname}`\n**Thumbnail :-** `{batch_logo}`")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
