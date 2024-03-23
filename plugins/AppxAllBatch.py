@@ -1,7 +1,5 @@
 import json
 from handlers import *
-from weasyprint import HTML
-from jinja2 import Template
 from pyrogram.types import InputMediaDocument
 import subprocess
 from pyrogram.types.messages_and_media import message
