@@ -162,10 +162,10 @@ async def start(bot, m):
                 pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n({subject_title}) {video_title} (pdf):{pdf_link_decrypted}"    
+                    video_link += f"\n({subject_title}) {video_title} PDF :{pdf_link_decrypted}"    
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                    video_link += f"\n({subject_title}) {video_title} (pdf-2):{pdf_link2_decrypted}"
+                    video_link += f"\n({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"({subject_title}) {video_title}:{video_link}\n")
                    
