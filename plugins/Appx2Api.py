@@ -1,5 +1,3 @@
-import requests as r
-import re
 import json
 from handlers import *
 from pyrogram.types import InputMediaDocument
