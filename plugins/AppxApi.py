@@ -118,6 +118,7 @@ async def start(bot, m):
     
     cool = ""
     for data in topicid:
+        batch_logo = (data["course_thumbnail"])
         aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
@@ -171,7 +172,7 @@ async def start(bot, m):
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`\n\n**Thumbnail :** `{batch_logo}`")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
