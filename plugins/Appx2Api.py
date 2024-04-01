@@ -47,20 +47,25 @@ def decrypt(text):
     return result
     
 def get_link(cid, pid, cname, raw_text05, hdr):
-      resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
-      for data in resp:                        
-             if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
-                 file_link = (data["file_link"])
-                 title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
-                 video_link = f'{title.replace(":","")} : {file_link}'
-                 if pdf_link and (pdf_link != file_link):
-                        video_link += f'\n{title.replace(":","")} PDF : {pdf_link}'
-                 if pdf_link2:
-                        video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'
-                 open(f"{cname}.txt", "a").write(f"{video_link}\n")  
-             else:
-                  cid = (data["id"])
-                  get_link(cid, pid, cname, raw_text05, hdr)                  
+    scraper = cloudscraper.create_scraper()
+    html9 = scraper.get("https://"+raw_text05+"/get/folder_contentsv2?course_id=" + cid + "&parent_id=" + pid, headers=hdr).content
+    output9 = json.loads(html9)
+    ff = output9["data"]
+    for data in ff:
+        if (data["material_type"] != "FOLDER") and (data["file_link"] != ""):
+            file_link = data["file_link"]
+            title, file_link, pdf_link, pdf_link2 = data["Title"], decrypt(file_link.split(":")[0]), decrypt(data["pdf_link"]).split(":")[0]), decrypt(data["pdf_link2"]).split(":")[0])
+            video_link = f'{title.replace(":","")} : {file_link}'
+            if pdf_link and (pdf_link != file_link):
+                video_link += f'\n{title.replace(":","")} PDF : {pdf_link}'
+            if pdf_link2:
+                video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'
+            
+            open(f"{cname}.txt", "a").write(f"{video_link}\n")
+
+        else:
+            cid = data["id"]
+            get_link(cid, pid, cname, raw_text05, hdr)                  
 @bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**\nLike `Aman Vashisht Yodha Uc Live` etc")
@@ -135,11 +140,14 @@ async def start(bot, m):
     for data in html1:
       if (data["id"]) == raw_text1:
         cid = raw_text1
-        cname = (data["course_name"])
-        response = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id=', headers=hdr).json()["data"]
+        cname = data['course_name']
+        scraper = cloudscraper.create_scraper()
+        html7 = scraper.get("https://"+raw_text05+"/get/folder_contentsv2?course_id=" + cid + "&parent_id=", headers=hdr).content
+        output7 = json.loads(html7)
+        mm = output7["data"]
         
-        for resp in response:
-           pid = (resp["id"])
+        for ff in mm:
+           pid = ff['id']
            get_link(cid, pid, cname, raw_text05, hdr)
 
 
