@@ -164,16 +164,16 @@ async def start(bot, m):
                 pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n ({topic_name}) ({subject_title}) {video_title} PDF :{pdf_link_decrypted}"    
+                    video_link += f"\n{subject_title} ({topic_name}) {video_title} PDF :{pdf_link_decrypted}"    
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                    video_link += f"\n({topic_name}) ({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
+                    video_link += f"\n{subject_title} ({topic_name}) {video_title} PDF-2 :{pdf_link2_decrypted}"
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f" ({topic_name}) ({subject_title}) {video_title}:{video_link}\n")
+                    f.write(f"{subject_title} ({topic_name}) {video_title}:{video_link}\n")
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}` (**AppX V1.0**)\n**BatchName :-** `{raw_text1}` `{course_title}`\n\n**Thumbnail :** `{batch_logo}`")
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}` (**AppX V1.0**)\n**BatchName :-** `{raw_text1}` `{course_title}`")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
