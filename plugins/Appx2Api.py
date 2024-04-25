@@ -142,7 +142,7 @@ async def start(bot, m):
         
         for resp in response:
            pid = (resp["id"])
-           get_link(cid, pid, cname, raw_text05, hdr, t_name)
+           get_link(cid, pid, cname, raw_text05, hdr, t_name="")
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
