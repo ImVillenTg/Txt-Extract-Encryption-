@@ -48,15 +48,16 @@ def decrypt(text):
     
 def get_link(cid, pid, cname, raw_text05, hdr):
       resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
+      t_name = (resp["Title"]) 
       for data in resp:                        
              if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
                  file_link = (data["file_link"])
                  title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
-                 video_link = f'{title.replace(":","")} : {file_link}'
+                 video_link = f'({t_name}) {title.replace(":","")} : {file_link}'
                  if pdf_link and (pdf_link != file_link):
-                        video_link += f'\n{title.replace(":","")} PDF : {pdf_link}'
+                        video_link += f'\n({t_name}) {title.replace(":","")} PDF : {pdf_link}'
                  if pdf_link2:
-                        video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'
+                        video_link += f'\n({t_name}) {title.replace(":","")} PDF-2 : {pdf_link2}'
                  open(f"{cname}.txt", "a").write(f"{video_link}\n")  
              else:
                   cid = (data["id"])
