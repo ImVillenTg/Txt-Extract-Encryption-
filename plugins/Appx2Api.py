@@ -46,7 +46,7 @@ def decrypt(text):
         result = 'Decoding failed, please try again!'
     return result
     
-def get_link(cid, pid, cname, raw_text05, hdr):
+def get_link(cid, pid, cname, raw_text05, hdr, t_name):
       resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
       for data in resp:                        
              if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
@@ -61,7 +61,7 @@ def get_link(cid, pid, cname, raw_text05, hdr):
                  open(f"{cname}.txt", "a").write(f"{video_link}\n")  
              else:
                   cid = (data["id"])
-                  get_link(cid, pid, cname, raw_text05, hdr)                  
+                  get_link(cid, pid, cname, raw_text05, hdr, t_name)                  
 @bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**\nLike `Aman Vashisht Yodha Uc Live` etc")
