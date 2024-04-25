@@ -46,12 +46,11 @@ def decrypt(text):
         result = 'Decoding failed, please try again!'
     return result
     
-def get_link(cid, pid, cname, raw_text05, hdr, t_name=""):
+def get_link(cid, pid, cname, raw_text05, hdr):
       resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
       for data in resp:                        
              if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
                  file_link = (data["file_link"])
-                 t_name = (data["Title"])
                  title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                  video_link = f'({t_name}) {title.replace(":","")} : {file_link}'
                  if pdf_link and (pdf_link != file_link):
@@ -61,8 +60,7 @@ def get_link(cid, pid, cname, raw_text05, hdr, t_name=""):
                  open(f"{cname}.txt", "a").write(f"{video_link}\n")  
              else:
                   cid = (data["id"])
-                  t_name = (data["Title"])
-                  get_link(cid, pid, cname, raw_text05, hdr, t_name)                  
+                  get_link(cid, pid, cname, raw_text05, hdr)                  
 @bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**\nLike `Aman Vashisht Yodha Uc Live` etc")
@@ -142,7 +140,7 @@ async def start(bot, m):
         
         for resp in response:
            pid = (resp["id"])
-           get_link(cid, pid, cname, raw_text05, hdr, t_name="")
+           get_link(cid, pid, cname, raw_text05, hdr)
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
