@@ -135,22 +135,20 @@ async def start(bot, m):
             course_title = data['course_name'].replace('/','')
     #await input1.delete(True)
     scraper = cloudscraper.create_scraper()
-    html3 = scraper.get("https://"+raw_text05+"/get/allsubjectfrmlivecourseclass?courseid=" + raw_text1 + "&start=-1", headers=hdr).content
+    html3 = scraper.get("https://"+raw_text05+"/get/allsubjectfrmlivecourseclass?courseid=" + raw_text1, headers=hdr).content
     output3 = json.loads(html3)
     topicid = output3["data"]
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
         scraper = cloudscraper.create_scraper()
-        html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids + "&start=-1", headers=hdr).content
+        html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
         vv = output4["data"]
         tsids_list = []
         for data in vv:
             tsids = data['topicid']
-            topic_name = data['topic_name']
             tsids_list.append(tsids)
-            tsids_list.append(topic_name)
         for tsids in tsids_list:
             scraper = cloudscraper.create_scraper()            
             html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
