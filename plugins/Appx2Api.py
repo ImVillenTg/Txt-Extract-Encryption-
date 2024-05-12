@@ -150,6 +150,7 @@ async def start(bot, m):
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
+        await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
         
 
 
