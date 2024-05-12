@@ -150,7 +150,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {course_title}\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
+        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {course_title}\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
