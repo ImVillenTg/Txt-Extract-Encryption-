@@ -51,19 +51,15 @@ def decrypt(text):
     
 def get_link(cid, pid, cname, raw_text05, hdr):
       resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
-      total_links = 0
       for data in resp:                        
              if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
                  file_link = (data["file_link"])
                  title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                  video_link = f'{title.replace(":","")} : {file_link}'
-                 total_links += 1
                  if pdf_link and (pdf_link != file_link):
                         video_link += f'\n{title.replace(":","")} PDF : {pdf_link}'
-                        total_links += 1
                  if pdf_link2:
-                        video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'
-                        total_links += 1
+                        video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'   
                  open(f"{cname}.txt", "a").write(f"{video_link}\n")
              else:
                   cid = (data["id"])
@@ -150,7 +146,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**🌀 Batch Id :** {cid}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {cname}\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
+        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**🌀 Batch Id :** {cid}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {cname}\n**❄️ Date :** {time}")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
