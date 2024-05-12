@@ -51,6 +51,7 @@ def decrypt(text):
     
 def get_link(cid, pid, cname, raw_text05, hdr):
       resp = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id={pid}', headers=hdr).json()["data"]
+      total_links = 0
       for data in resp:                        
              if ((data["material_type"]) != "FOLDER") and ((data["file_link"]) != ""):                 
                  file_link = (data["file_link"])
@@ -124,7 +125,6 @@ async def start(bot, m):
     )
     html1 = scraper.get("https://"+raw_text05+"/get/mycoursev2", headers=hdr, params=params).json()["data"]
     cool = ""
-    total_links = 0
     for data in html1:
         aa = f" {data['id']} » {data['course_name']} ✳️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
@@ -150,7 +150,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** `{course_title}`\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
+        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {course_title}\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
