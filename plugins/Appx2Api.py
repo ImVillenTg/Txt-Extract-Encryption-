@@ -23,6 +23,9 @@ import base64
 import cloudscraper
 from Crypto.Cipher import AES
 
+import datetime
+
+time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 my_data = -1001938939742
 sudo_group = config.GROUPS
 ADMINS = config.ADMINS
@@ -53,11 +56,14 @@ def get_link(cid, pid, cname, raw_text05, hdr):
                  file_link = (data["file_link"])
                  title, file_link, pdf_link, pdf_link2 = (data["Title"]), decrypt(file_link.split(":")[0]), decrypt((data["pdf_link"]).split(":")[0]), decrypt((data["pdf_link2"]).split(":")[0])
                  video_link = f'{title.replace(":","")} : {file_link}'
+                 total_links += 1
                  if pdf_link and (pdf_link != file_link):
                         video_link += f'\n{title.replace(":","")} PDF : {pdf_link}'
+                        total_links += 1
                  if pdf_link2:
                         video_link += f'\n{title.replace(":","")} PDF-2 : {pdf_link2}'
-                 open(f"{cname}.txt", "a").write(f"{video_link}\n")  
+                        total_links += 1
+                 open(f"{cname}.txt", "a").write(f"{video_link}\n")
              else:
                   cid = (data["id"])
                   get_link(cid, pid, cname, raw_text05, hdr)                  
@@ -118,6 +124,7 @@ async def start(bot, m):
     )
     html1 = scraper.get("https://"+raw_text05+"/get/mycoursev2", headers=hdr, params=params).json()["data"]
     cool = ""
+    total_links = 0
     for data in html1:
         aa = f" {data['id']} » {data['course_name']} ✳️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
@@ -143,11 +150,13 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**AppName :-** `{caption_details}` [AppX V2]\n**BatchName :-** `{cid}` `{cname}`")
+        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** `{course_title}`\n**🔰 Total Links :** {total_links}\n**❄️ Date :** {time}")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
-        await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
+        
+
+
 
     
     
