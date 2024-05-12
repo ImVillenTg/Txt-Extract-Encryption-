@@ -21,6 +21,9 @@ import base64
 import os
 import cloudscraper
 from Crypto.Cipher import AES
+import datetime
+
+time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 my_data = -1001938939742
 sudo_group = config.GROUPS
@@ -117,6 +120,7 @@ async def start(bot, m):
     topicid = output1["data"]
     
     cool = ""
+    total_links = 0
     for data in topicid:
         aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
@@ -162,16 +166,19 @@ async def start(bot, m):
                 pdf_link2 = video["pdf_link2"]
                 if pdf_link and pdf_link != fuck:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                    video_link += f"\n({subject_title}) {video_title} PDF :{pdf_link_decrypted}"    
+                    video_link += f"\n({subject_title}) {video_title} PDF :{pdf_link_decrypted}"
+                    total_links += 1
                 if pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
+                    total_links += 1
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"({subject_title}) {video_title}:{video_link}\n")
+                    total_links += 1
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}` [AppX V1]\n**BatchName :-** `{raw_text1}` `{course_title}`")
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**📚 AppName :-** `{caption_details}` [AppX V1]\n**🌀 BatchName :-** `{raw_text1}` `{course_title}`\n**🖇️ Total Links :** {total_links}\n**⏰ Date :** {time}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
