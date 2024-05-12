@@ -119,7 +119,6 @@ async def start(bot, m):
     html1 = scraper.get("https://"+raw_text05+"/get/mycoursev2", headers=hdr, params=params).json()["data"]
     cool = ""
     for data in html1:
-        batch_logo = (data["course_thumbnail"])
         aa = f" {data['id']} » {data['course_name']} ✳️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
@@ -144,7 +143,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**AppName :-** `{caption_details}` **AppX V2**\n**BatchName :-** `{cid}` `{cname}`\n\n**Thumb :** `{batch_logo}`")
+        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**AppName :-** `{caption_details}` [AppX V2]\n**BatchName :-** `{cid}` `{cname}`")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
