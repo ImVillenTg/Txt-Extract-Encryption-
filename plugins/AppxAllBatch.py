@@ -93,7 +93,8 @@ async def start(bot, m):
           html1.append({"id": batch_id, "course_name": batch_name, "price": batch_price, "course_thumbnail": batch_logo})
             
     topicid = html1
-    
+
+    mm = ""
     for data in topicid:
         bb = f" `{data['id']}` » {data['course_name']} ✳️ ₹{data['price']} `{data['course_thumbnail']}`\n"
         mm = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
