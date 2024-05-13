@@ -201,13 +201,7 @@ async def start(bot, m):
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").replace("apinew.teachx.in", "").replace("apinew.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
-    #file2 = InputMediaDocument(f"{course_title}.json")
-    #file3 = InputMediaDocument(f"{course_title}.pdf", caption = f"**AppName :-** `{caption_details}`\n\n**BatchName :-** `{course_title}`\n\nCourse Grabber Bot Made By REXODAS")
-    #file4 = InputMediaDocument(f"{course_title}.html", caption = f"**Batch :** {course_title}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
-    os.remove(f"{course_title}.json")
-    os.remove(f"{course_title}.html")
-    os.remove(f"{course_title}.pdf")
     await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")                 	
