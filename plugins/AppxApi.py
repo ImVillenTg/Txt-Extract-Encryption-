@@ -173,7 +173,7 @@ async def start(bot, m):
                     video_link += f"\n({subject_title}) {video_title} PDF-2 :{pdf_link2_decrypted}"
                     total_links += 1
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(f"({subject_title}) {video_title}:{video_link}\n")
+                    f.write(f"({subject_title}) {video_title.replace("|", "")}:{video_link}\n")
                     total_links += 1
                    
  
