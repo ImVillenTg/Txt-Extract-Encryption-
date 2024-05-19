@@ -23,7 +23,7 @@ import cloudscraper
 from Crypto.Cipher import AES
 import datetime
 
-time = datetime.datetime.now().strftime("%d-%m-%Y %I:%M:%p")
+time = datetime.datetime.now().strftime("%d-%m-%Y")
 
 my_data = -1001938939742
 sudo_group = config.GROUPS
