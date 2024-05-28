@@ -189,16 +189,7 @@ async def start(bot, m):
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write(f"{subject_title} {video_title}:{video_link}\n")
                 	   
-    with open(f"{course_title}.json", 'w') as f:
-        f.write(json.dumps(output_dict, indent=4))
-    with open('template.html', 'r') as f:
-        template_str = f.read()
-    template = Template(template_str)
-    html = template.render(title=course_title, topics=output_dict, type="videos")
-    with open(f"{course_title}.html", 'w') as f:
-        f.write(html)
-        HTML(filename=f"{course_title}.html").write_pdf(f"{course_title}.pdf")
- 
+    
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").replace("apinew.teachx.in", "").replace("apinew.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**AppName :-** `{caption_details}`\n**BatchName :-** `{raw_text1}` `{course_title}`")
     await bot.send_media_group(m.chat.id, [file1])
