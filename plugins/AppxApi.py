@@ -122,7 +122,6 @@ async def start(bot, m):
     cool = ""
     total_links = 0
     for data in topicid:
-        batch_logo = (data["course_thumbnail"])
         aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
@@ -137,6 +136,7 @@ async def start(bot, m):
     course_title = ""  
     for data in topicid:
         if data['id'] == raw_text1:
+            batch_logo = data['course_thumbnail']
             course_title = data['course_name'].replace('/','')
     #await input1.delete(True)
     scraper = cloudscraper.create_scraper()
@@ -179,7 +179,7 @@ async def start(bot, m):
                    
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V1)\n**📚 Batch :** `{course_title}`\n**🔰 Total Links :** {total_links}\n**\n**Thumb :** `{batch_logo}`\n❄️ Date :** {time}")
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n**✳️ App :** {caption_details} (AppX V1)\n**📚 Batch :** `{course_title}`\n**🔰 Total Links :** {total_links}\n**🌪️ Thumb :** `{batch_logo}`\n**❄️Date :** {time}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
