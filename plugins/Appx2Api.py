@@ -139,6 +139,7 @@ async def start(bot, m):
     for data in html1:
       if (data["id"]) == raw_text1:
         cid = raw_text1
+        batch_logo = data['course_thumbnail']
         cname = (data["course_name"])
         response = r.get(f'https://{raw_text05}/get/folder_contentsv2?course_id={cid}&parent_id=', headers=hdr).json()["data"]
         
@@ -148,7 +149,7 @@ async def start(bot, m):
 
 
         caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**🌀 Batch Id :** {cid}\n**✳️ App :** {caption_details} (AppX V2)\n**📚 Batch :** {cname}\n**❄️ Date :** {time}")
+        file1 = InputMediaDocument(f"{cname}.txt", caption=f"**🌀 Batch Id :** {cid}\n\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{cname}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
         await bot.send_media_group(m.chat.id, [file1])
         await bot.send_media_group(my_data, [file1])
         os.remove(f"{cname}.txt")
