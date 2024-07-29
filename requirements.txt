@@ -1,4 +1,5 @@
 pyrogram
+pyromod 
 requests
 cloudscraper
 tgcrypto
@@ -7,6 +8,3 @@ aiohttp
 asyncio
 pycurl
 pycryptodome
-Flask==2.2.2
-werkzeug==2.2.2
-gunicorn==20.1.0
