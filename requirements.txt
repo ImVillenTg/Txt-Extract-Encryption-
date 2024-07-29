@@ -1,14 +1,9 @@
 pyrogram
 requests
-wget
-mediainfo
 cloudscraper
 tgcrypto
 pyromod==1.5
-lxml
 bs4
-telegraph
-psutil
 aiohttp
 aiofiles
 asyncio
@@ -16,8 +11,6 @@ pycurl
 humanize
 dnspython
 aiofiles
-motor
-gdown
 pycryptodome
 Flask==2.2.2
 werkzeug==2.2.2
