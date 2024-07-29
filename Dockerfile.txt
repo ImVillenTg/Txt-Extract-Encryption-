@@ -15,8 +15,8 @@ COPY requirements.txt /requirements.txt
 # Installing Requirements
 RUN cd /
 RUN pip3 install -U -r requirements.txt
-RUN mkdir /REXO-LEECH-BOT-01
-WORKDIR /REXO-LEECH-BOT-01
+RUN mkdir /Txt-Extract-Encryption-
+WORKDIR /Txt-Extract-Encryption-
 COPY start.sh /start.sh
 
 # Running MessageSearchBot
