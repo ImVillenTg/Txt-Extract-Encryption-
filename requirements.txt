@@ -5,11 +5,8 @@ tgcrypto
 pyromod
 bs4
 aiohttp
-aiofiles
 asyncio
 pycurl
-humanize
-aiofiles
 pycryptodome
 Flask==2.2.2
 werkzeug==2.2.2
