@@ -1,12 +1,10 @@
 pyrogram
 requests
 wget
-ffmpeg
 mediainfo
 cloudscraper
 tgcrypto
 pyromod==1.5
-yt-dlp
 lxml
 bs4
 telegraph
