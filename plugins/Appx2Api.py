@@ -2,7 +2,6 @@ import requests as r
 import re
 import json
 from pyrogram.types import InputMediaDocument
-import subprocess
 from pyrogram.types.messages_and_media import message
 from pyromod import listen
 from pyrogram.types import Message
