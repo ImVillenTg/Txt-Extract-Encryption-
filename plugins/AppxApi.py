@@ -170,7 +170,7 @@ async def start(bot, m):
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
                     video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                     total_links += 1
-                else pdf_link2:
+                else:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                     total_links += 1
