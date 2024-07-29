@@ -9,10 +9,8 @@ import pyrogram
 from pyrogram import Client, filters
 from pyrogram import Client as bot
 from pyrogram.types.messages_and_media import message
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
 from pyrogram.types import User, Message
-from subprocess import getstatusoutput
 import logging
 import main
 import config
