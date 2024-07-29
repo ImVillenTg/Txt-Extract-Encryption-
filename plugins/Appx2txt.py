@@ -1,5 +1,4 @@
 import json
-from handlers import *
 from pyrogram.types import InputMediaDocument
 import subprocess
 from pyrogram.types.messages_and_media import message
