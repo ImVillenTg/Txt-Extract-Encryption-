@@ -2,7 +2,6 @@ pyrogram
 requests
 cloudscraper
 tgcrypto
-pyromod
 bs4
 aiohttp
 asyncio
