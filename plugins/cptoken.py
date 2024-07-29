@@ -1,4 +1,3 @@
-from handlers import *
 import requests 
 from pyrogram.types.messages_and_media import message
 from pyromod import listen
