@@ -1,7 +1,5 @@
 import json
-from handlers import *
 from pyrogram.types import InputMediaDocument
-import subprocess
 from pyrogram.types.messages_and_media import message
 from pyromod import listen
 from pyrogram.types import Message
@@ -12,7 +10,6 @@ from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
 from pyrogram.types import User, Message
-from subprocess import getstatusoutput
 import logging
 import main
 import config
