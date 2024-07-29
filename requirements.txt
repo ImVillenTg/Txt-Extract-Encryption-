@@ -9,7 +9,6 @@ aiofiles
 asyncio
 pycurl
 humanize
-dnspython
 aiofiles
 pycryptodome
 Flask==2.2.2
