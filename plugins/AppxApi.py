@@ -158,15 +158,19 @@ async def start(bot, m):
             gg = output5["data"]
             for video in gg:
                 video_title = video["Title"].replace(':', '')
-                fuck = video["download_link"]
-                video_link = decrypt((fuck).split(":")[0])
+                vlink1 = video["download_link"]
+                vlink2 = video["video_player_token"]
+                if vlink1:
+                    video_link += decrypt((vlink1).split(":")[0])
+                else:
+                    video_link += f"https://player.akamai.net.in/secure-player?isMobile=true&token={vlink2}"
                 pdf_link = video["pdf_link"]
                 pdf_link2 = video["pdf_link2"]
-                if pdf_link and pdf_link != fuck:
+                if pdf_link:
                     pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
                     video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                     total_links += 1
-                if pdf_link2:
+                else pdf_link2:
                     pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                     video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                     total_links += 1
