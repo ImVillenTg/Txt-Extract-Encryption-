@@ -175,7 +175,7 @@ async def start(bot, m):
                     total_links += 1
                    
  
-    caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").upper()
+    caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("akamai.net.in", "").replace("teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
