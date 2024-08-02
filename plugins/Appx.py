@@ -150,7 +150,6 @@ async def start(bot, m):
             tsids_list = []
             for data in vv:
                 tsids = data['topicid']
-                topic_title = data['topic_name']
                 tsids_list.append(tsids)
             for tsids in tsids_list:
                 scraper = cloudscraper.create_scraper()            
@@ -166,14 +165,14 @@ async def start(bot, m):
                         pdf_link2 = video["pdf_link2"]
                         if pdf_link and pdf_link != fuck:
                             pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
-                            video_link += f"\n({subject_title}) ({topic_title}) {video_title} PDF:{pdf_link_decrypted}"
+                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                             total_links += 1
                         if pdf_link2:
                             pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
-                            video_link += f"\n({subject_title}) ({topic_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
+                            video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                             total_links += 1
                         with open(f"{course_title}.txt", 'a') as f:
-                            f.write(f"({subject_title}) ({topic_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
+                            f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
                     else:
                         video_id = video["id"]
@@ -192,18 +191,18 @@ async def start(bot, m):
                         pdf_lk2 = output6['data']["pdf_link2"]
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk.split(":")[0])
-                            video_link += f"\n({subject_title}) ({topic_title}) {video_title} PDF:{pdf_link_decrypted}"
+                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                             total_links += 1
                         else:
                             pdf_link_decrypted = "None"
                         if pdf_lk2:
                             pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
-                            video_link += f"\n({subject_title}) ({topic_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
+                            video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                             total_links += 1
                         else:
                             pdf_link2_decrypted = "None"
                         with open(f"{course_title}.txt", 'a') as f:
-                            f.write(f"({subject_title}) ({topic_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
+                            f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
      
 
