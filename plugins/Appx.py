@@ -209,7 +209,7 @@ async def start(bot, m):
 
                         meseg = await bot.send_message(m.chat.id, f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                         await asyncio.sleep(0.25)
-                        await bot.delete_messages(m.chat.id, message.message_id)
+                        await bot.delete_messages(m.chat.id, meseg.message_id)
                         with open(f"{course_title}.txt", 'a') as f:
                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
