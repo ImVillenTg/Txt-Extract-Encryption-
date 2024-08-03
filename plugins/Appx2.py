@@ -40,7 +40,7 @@ def appx_dec(link):
     final_link = unpadded_link.decode('utf-8')
     return final_link
 
-def fapi1(bid, bname):
+def fapi1(bid, bname, raw_text05):
     fapi1_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id=-1"
     response = requests.get(fapi1_url, headers=headers)
     if response.status_code != 200:
@@ -51,7 +51,7 @@ def fapi1(bid, bname):
     fname = data["data"][0]["Title"]
     return fid, fname
 
-def fapi2(bid, fid, fname):
+def fapi2(bid, fid, fname, raw_text05):
     fapi2_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id={fid}"
     response = requests.get(fapi2_url, headers=headers)
     if response.status_code != 200:
@@ -61,7 +61,7 @@ def fapi2(bid, fid, fname):
     cdatas = data.get("data", [])
     return cdatas
 
-def vapi(bid, vid):
+def vapi(bid, vid, raw_text05):
     vapi_url = f"https://{raw_text05}/get/fetchVideoDetailsById?course_id={bid}&video_id={vid}&ytflag=0&folder_wise_course=1"
     count = 0
     request_count = 0
