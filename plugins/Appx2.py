@@ -103,21 +103,17 @@ def process_folder(api, bid, fid, fname, headers, f):
             title = cdata["Title"]
             link = cdata["thumbnail"]
             mm = f"({fname}) {title}:{link}\n"
-            print(mm)
             f.write(mm)
         elif mtype == "VIDEO":
             vid = cdata["id"]
             title, vlink, plink1, plink2 = vapi(api, bid, vid, headers)
             mm = f"({fname}) {title}:{vlink}\n"
-            print(mm)
             f.write(mm)
             if plink1:
                 mm = f"({fname}) {title}:{plink1}\n"
-                print(mm)
                 f.write(mm)
             if plink2:
                 mm = f"({fname}) {title} (PDF-2):{plink2}\n"
-                print(mm)
                 f.write(mm)
         elif mtype == "PDF":
             title = cdata["Title"]
