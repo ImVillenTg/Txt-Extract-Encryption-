@@ -194,6 +194,8 @@ async def start(bot, m):
                     if pdf_lk2:
                         pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
                         video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
+                    else:
+                        pdf_link2_decrypted = "None"
                         
                     with open(f"{course_title}.txt", 'a') as f:
                         f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
