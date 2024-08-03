@@ -179,27 +179,28 @@ async def start(bot, m):
                     video_title = video["Title"].replace(':', '')
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
-                    output6 = json.loads(html6)       
-                    gg = output6['data'].get('download_link')
-                    if gg:
-                        video_link = decrypt((gg).split(":")[0])
-                    else:
-                        video_link = "None"
-                    pdf_lk = output6['data']["pdf_link"]
-                    pdf_lk2 = output6['data']["pdf_link2"]
-                    if pdf_lk:
-                        pdf_link_decrypted = decrypt(pdf_lk.split(":")[0])
-                        video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
-                        total_links += 1
-                    if pdf_lk2:
-                        pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
-                        video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
-                    else:
-                        pdf_link2_decrypted = "None"
+                    output6 = json.loads(html6)  
+                    if output6['data'] is not None:
+                        gg = output6['data'].get('download_link')
+                         if gg:
+                             video_link = decrypt((gg).split(":")[0])
+                         else:
+                             video_link = "None"
+                         pdf_lk = output6['data']["pdf_link"]
+                         pdf_lk2 = output6['data']["pdf_link2"]
+                         if pdf_lk:
+                             pdf_link_decrypted = decrypt(pdf_lk.split(":")[0])
+                             video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
+                             total_links += 1
+                         if pdf_lk2:
+                             pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
+                             video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
+                         else:
+                             pdf_link2_decrypted = "None"
                         
-                    with open(f"{course_title}.txt", 'a') as f:
-                        f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
-                        total_links += 1
+                         with open(f"{course_title}.txt", 'a') as f:
+                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
+                             total_links += 1
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("api.akamai.net.in", "").replace("api.teachx.in", "").replace("cloudflare.net.in", "").upper()
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
