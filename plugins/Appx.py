@@ -61,7 +61,7 @@ def decrypt(text):
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 #@bot.on_message(filters.command("api"))
 async def start(bot, m):
-    editable = await bot.send_message(m.chat.id, "Send Your **APPX APPLICATION API**")
+    editable = await bot.send_message(m.chat.id, "🌐 Enter API :")
     input01: Message = await bot.listen(editable.chat.id)
     raw_text05 = input01.text
     await input01.delete(True)
