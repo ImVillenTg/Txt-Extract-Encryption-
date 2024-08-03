@@ -140,7 +140,7 @@ def process_folder(bid, fid, fname, f):
         elif mtype == "FOLDER":
             fid = cdata["id"]
             fname = cdata["Title"]
-            process_folder(bid, fid, fname, f)
+            process_folder(bid, fid, fname, f, raw_text05, hdr)
 
 @bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
@@ -218,7 +218,7 @@ async def start(bot, m):
             course_name = (data["course_name"])
             fid, fname = fapi1(course_id, course_name, raw_text05, hdr)
             with open(f"{course_name}.txt", "w") as f:
-                process_folder(course_id, fid, fname, f)
+                process_folder(course_id, fid, fname, f, raw_text05, hdr)
 
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_name}.txt", caption=f"**🌀 Batch Id :** {course_id}\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{course_name}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
