@@ -99,7 +99,7 @@ def vapi(bid, vid, raw_text05, hdr):
         if request_count % 50 == 0:
             time.sleep(10)  # Sleep for 10 seconds after every 50 requests
 
-def process_folder(bid, fid, fname, f):
+def process_folder(bid, fid, fname, f, raw_text05, hdr):
     cdatas = fapi2(bid, fid, fname, raw_text05, hdr)
     for cdata in cdatas:
         mtype = cdata["material_type"]
