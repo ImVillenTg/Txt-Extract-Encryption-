@@ -134,13 +134,13 @@ def process_folder(api, bid, fid, fname, headers, f):
             fname = cdata["Title"]
             process_folder(api, bid, fid, fname, headers, f)
 
-@bot.on_message(filters.command("appx2") & (filters.chat(sudo_group) | filters.user(ADMINS)))
+@bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
-    editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**")
+    editable = await bot.send_message(m.chat.id, "🌐 Enter Folder **API**")
     input01: Message = await bot.listen(editable.chat.id)
     api = input01.text
     await input01.delete(True)
-    await editable.edit("Send **ID & Password** in this manner otherwise bot will not reply.\n\nSend like this »  ID*Password.")
+    await editable.edit("Send ID & Password or **Token** 🧲")
     login_headers = {
         'Client-Service': 'Appx',
         'Auth-Key': 'appxapi',
@@ -214,7 +214,7 @@ async def start(bot, m):
 
     caption_details = api.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
     file1 = InputMediaDocument(f"{course_name}.txt", caption=f"**🌀 Batch Id :** {course_id}\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{course_name}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {current_time}")
-    await bot.send_media_group(message.chat.id, [file1])
+    await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])
     os.remove(f"{course_name}.txt")
-    await bot.send_message(message.chat.id, "Batch Grabbing Done\nThanks to VEBHI ♥")
+    await bot.send_message(m.chat.id, "Batch Grabbing Done ✅")
