@@ -139,7 +139,7 @@ def process_folder(api, bid, fid, fname, headers, f):
 
 @bot.on_message(filters.command("appx2") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
-    editable = await bot.send_message(message.chat.id, "Send Your Folder **APPX APPLICATION API**")
+    editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**")
     input01: Message = await bot.listen(editable.chat.id)
     api = input01.text
     await input01.delete(True)
