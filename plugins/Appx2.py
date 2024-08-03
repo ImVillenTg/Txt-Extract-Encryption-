@@ -122,12 +122,10 @@ def process_folder(api, bid, fid, fname, headers, f):
             if plink1:
                 link = appx_dec(plink1)
                 mm = f"({fname}) {title}:{link}\n"
-                print(mm)
                 f.write(mm)
             if plink2:
                 link = appx_dec(plink2)
                 mm = f"({fname}) {title} (PDF-2):{link}\n"
-                print(mm)
                 f.write(mm)
         elif mtype == "FOLDER":
             fid = cdata["id"]
@@ -213,7 +211,7 @@ async def start(bot, m):
                 process_folder(api, course_id, fid, fname, headers, f)
 
     caption_details = api.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
-    file1 = InputMediaDocument(f"{course_name}.txt", caption=f"**🌀 Batch Id :** {course_id}\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{course_name}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {current_time}")
+    file1 = InputMediaDocument(f"{course_name}.txt", caption=f"**🌀 Batch Id :** {course_id}\n\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{course_name}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {current_time}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])
     os.remove(f"{course_name}.txt")
