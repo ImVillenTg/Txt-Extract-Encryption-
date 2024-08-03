@@ -42,7 +42,7 @@ def appx_dec(link):
 
 def fapi1(bid, bname, raw_text05):
     fapi1_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id=-1"
-    response = requests.get(fapi1_url, headers=headers)
+    response = requests.get(fapi1_url, headers=hdr)
     if response.status_code != 200:
         print(f"Failed to fetch folder contents for course ID {bid}. Status code: {response.status_code}")
         return "N/A", "N/A"
@@ -53,7 +53,7 @@ def fapi1(bid, bname, raw_text05):
 
 def fapi2(bid, fid, fname, raw_text05):
     fapi2_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id={fid}"
-    response = requests.get(fapi2_url, headers=headers)
+    response = requests.get(fapi2_url, headers=hdr)
     if response.status_code != 200:
         print(f"Failed to fetch folder contents for folder ID {fid}. Status code: {response.status_code}")
         return []
@@ -67,7 +67,7 @@ def vapi(bid, vid, raw_text05):
     request_count = 0
     while True:
         try:
-            response = requests.get(vapi_url, headers=headers)
+            response = requests.get(vapi_url, headers=hdr)
             time.sleep(0.4)  # Sleep for 0.4 seconds
             if response.status_code != 200:
                 print(f"Failed to fetch video details for video ID {vid}. Status code: {response.status_code}")
