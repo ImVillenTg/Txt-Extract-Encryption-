@@ -216,7 +216,7 @@ async def start(bot, m):
             course_id = raw_text1
             batch_logo = data['course_thumbnail']
             course_name = (data["course_name"])
-            fid, fname = fapi1(course_id, course_name)
+            fid, fname = fapi1(course_id, course_name, raw_text05)
             with open(f"{course_name}.txt", "w") as f:
                 process_folder(course_id, fid, fname, f)
 
