@@ -61,11 +61,11 @@ def decrypt(text):
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 #@bot.on_message(filters.command("api"))
 async def start(bot, m):
-    editable = await bot.send_message(m.chat.id, "🌐 Enter API :")
+    editable = await bot.send_message(m.chat.id, "**🌐 Enter API :**")
     input01: Message = await bot.listen(editable.chat.id)
     raw_text05 = input01.text
     await input01.delete(True)
-    await editable.edit("Send **ID & Password** in this manner otherwise bot will not reply.\n\nSend like this »  ID*Password.")
+    await editable.edit("Send Authorization Token or **ID & Password** 🧲")
     login_hdr = {
         'Client-Service': 'Appx',
         'Auth-Key': 'appxapi',
