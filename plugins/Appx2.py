@@ -41,7 +41,7 @@ def appx_dec(link):
     return final_link
 
 def fapi1(bid, bname):
-    fapi1_url = f"https://{api}/get/folder_contentsv2?course_id={bid}&parent_id=-1"
+    fapi1_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id=-1"
     response = requests.get(fapi1_url, headers=headers)
     if response.status_code != 200:
         print(f"Failed to fetch folder contents for course ID {bid}. Status code: {response.status_code}")
@@ -52,7 +52,7 @@ def fapi1(bid, bname):
     return fid, fname
 
 def fapi2(bid, fid, fname):
-    fapi2_url = f"https://{api}/get/folder_contentsv2?course_id={bid}&parent_id={fid}"
+    fapi2_url = f"https://{raw_text05}/get/folder_contentsv2?course_id={bid}&parent_id={fid}"
     response = requests.get(fapi2_url, headers=headers)
     if response.status_code != 200:
         print(f"Failed to fetch folder contents for folder ID {fid}. Status code: {response.status_code}")
@@ -62,7 +62,7 @@ def fapi2(bid, fid, fname):
     return cdatas
 
 def vapi(bid, vid):
-    vapi_url = f"https://{api}/get/fetchVideoDetailsById?course_id={bid}&video_id={vid}&ytflag=0&folder_wise_course=1"
+    vapi_url = f"https://{raw_text05}/get/fetchVideoDetailsById?course_id={bid}&video_id={vid}&ytflag=0&folder_wise_course=1"
     count = 0
     request_count = 0
     while True:
@@ -142,7 +142,7 @@ def process_folder(bid, fid, fname, f):
             fname = cdata["Title"]
             process_folder(bid, fid, fname, f)
 
-@bot.on_message(filters.command("appx2") & (filters.chat(sudo_group) | filters.user(ADMINS)))
+@bot.on_message(filters.command("appx") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "Send Your Folder **APPX APPLICATION API**\nLike `Aman Vashisht Yodha Uc Live` etc")
     input01: Message = await bot.listen(editable.chat.id)
