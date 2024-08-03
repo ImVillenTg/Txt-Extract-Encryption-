@@ -171,7 +171,7 @@ async def start(bot, m):
                         pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                         video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                         total_links += 1
-                    with open(f"{course_title} [REXO_BOT].txt", 'a') as f:
+                    with open(f"{course_title}.txt", 'a') as f:
                         f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                         total_links += 1
                 else:
@@ -199,7 +199,7 @@ async def start(bot, m):
                         else:
                             pdf_link2_decrypted = "None"
                         
-                        with open(f"{course_title} [REXO_BOT].txt", 'a') as f:
+                        with open(f"{course_title}.txt", 'a') as f:
                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
  
