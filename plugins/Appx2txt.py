@@ -15,6 +15,10 @@ import main
 import config
 import os
 import cloudscraper
+import datetime
+
+time = datetime.datetime.now().strftime("%d-%m-%Y")
+
 
 my_data = -1001938939742
 sudo_group = config.GROUPS
