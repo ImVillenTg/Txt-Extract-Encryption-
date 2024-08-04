@@ -102,7 +102,7 @@ async def start(bot, m):
             f.write(f"{bb}\n")
                  	
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("api.akamai.net.in", "").replace("api.teachx.in", "").replace("cloudflare.net.in", "").upper()
-    file2 = InputMediaDocument(f"{mm}.txt", caption=f"**{caption_details} 🔰 Batch List**\n\n**Date :** {time}")
+    file2 = InputMediaDocument(f"{mm}.txt", caption=f"{caption_details} [Batch List]\n\n**Date :** {time}")
     await bot.send_media_group(m.chat.id, [file2])
     await bot.send_media_group(my_data, [file2])
     os.remove(f"{mm}.txt")
