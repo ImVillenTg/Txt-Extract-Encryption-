@@ -22,6 +22,7 @@ import datetime
 
 time = datetime.datetime.now().strftime("%d-%m-%Y")
 
+thumb = "https://telegra.ph/file/01a1fdec4b41ac1bf60e4.jpg"
 my_data = -1001938939742
 sudo_group = config.GROUPS
 ADMINS = config.ADMINS
@@ -200,6 +201,7 @@ async def start(bot, m):
                             pdf_link2_decrypted = "None"
                         
                         with open(f"{course_title}.txt", 'a') as f:
+                            f.write(f"Thumb: {thumb}\n")
                             f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '')}:{video_link}\n")
                             total_links += 1
  
