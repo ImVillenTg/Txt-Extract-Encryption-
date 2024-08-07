@@ -101,7 +101,7 @@ def process_folder(api, bid, fid, fname, headers, f):
         mtype = cdata["material_type"]
         if mtype == "IMAGE":
             title = cdata["Title"]
-            link = cdata["course_thumbnail"]
+            link = cdata["thumbnail"]
             mm = f"({fname}) {title}:{link}\n"
             f.write(mm)
         elif mtype == "VIDEO":
