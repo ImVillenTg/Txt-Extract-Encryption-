@@ -21,6 +21,7 @@ import datetime
 import time  # Import the time module
 
 current_time = datetime.datetime.now().strftime("%d-%m-%Y")
+thumb = "https://telegra.ph/file/01a1fdec4b41ac1bf60e4.jpg"
 
 my_data = -1001938939742
 sudo_group = config.GROUPS
@@ -208,6 +209,7 @@ async def start(bot, m):
             course_name = data["course_name"]
             fid, fname = fapi1(api, course_id, headers)
             with open(f"{course_name}.txt", "w") as f:
+                f.write(f"Thumb: {thumb}\n")
                 process_folder(api, course_id, fid, fname, headers, f)
 
     caption_details = api.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
