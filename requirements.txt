@@ -8,4 +8,3 @@ aiohttp
 asyncio
 pycurl
 pycryptodome
-gunicorn==20.1.0
