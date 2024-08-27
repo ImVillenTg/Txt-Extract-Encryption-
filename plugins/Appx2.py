@@ -107,13 +107,13 @@ def process_folder(api, bid, fid, fname, headers, f):
         elif mtype == "VIDEO":
             vid = cdata["id"]
             title, vlink, plink1, plink2 = vapi(api, bid, vid, headers)
-            mm = f"({fname}) {title}:{vlink}\n"
+            mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{vlink}\n"
             f.write(mm)
             if plink1:
-                mm = f"({fname}) {title}:{plink1}\n"
+                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{plink1}\n"
                 f.write(mm)
             if plink2:
-                mm = f"({fname}) {title} (PDF-2):{plink2}\n"
+                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')} (PDF-2):{plink2}\n"
                 f.write(mm)
         elif mtype == "PDF":
             title = cdata["Title"]
@@ -121,11 +121,11 @@ def process_folder(api, bid, fid, fname, headers, f):
             plink2 = cdata["pdf_link2"]
             if plink1:
                 link = appx_dec(plink1)
-                mm = f"({fname}) {title}:{link}\n"
+                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{link}\n"
                 f.write(mm)
             if plink2:
                 link = appx_dec(plink2)
-                mm = f"({fname}) {title} (PDF-2):{link}\n"
+                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')} (PDF-2):{link}\n"
                 f.write(mm)
         elif mtype == "FOLDER":
             fid = cdata["id"]
