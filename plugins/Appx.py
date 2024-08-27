@@ -158,7 +158,7 @@ async def start(bot, m):
             gg = output5["data"]
             for video in gg:
                 if video.get("download_link"):
-                    video_title = video["Title"].replace(':', '')
+                    video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     fuck = video["download_link"]
                     video_link = decrypt((fuck).split(":")[0])
                     pdf_link = video["pdf_link"]
@@ -172,11 +172,11 @@ async def start(bot, m):
                         video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                         total_links += 1
                     with open(f"{course_title}.txt", 'a') as f:
-                        f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{video_link}\n")
+                        f.write(f"({subject_title}) {video_title}:{video_link}\n")
                         total_links += 1
                 else:
                     video_id = video["id"]
-                    video_title = video["Title"]
+                    video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
@@ -200,7 +200,7 @@ async def start(bot, m):
                             pdf_link2_decrypted = "None"
                         
                         with open(f"{course_title}.txt", 'a') as f:
-                            f.write(f"({subject_title}) {video_title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{video_link}\n")
+                            f.write(f"({subject_title}) {video_title}:{video_link}\n")
                             total_links += 1
  
     caption_details = raw_text05.replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("api.akamai.net.in", "").replace("api.teachx.in", "").replace("cloudflare.net.in", "").upper()
