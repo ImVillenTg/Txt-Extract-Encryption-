@@ -44,7 +44,7 @@ def fapi1(api, bid, headers):
         return "N/A", "N/A"
     data = response.json()
     fid = data["data"][0]["id"]
-    fname = data["data"][0]["Title"]
+    fname = data["data"][0]["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
     return fid, fname
 
 def fapi2(api, bid, fid, headers):
@@ -69,7 +69,7 @@ def vapi(api, bid, vid, headers):
                 print(f"Failed to fetch video details for video ID {vid}. Status code: {response.status_code}")
                 break
             data = response.json()
-            title = data["data"]["Title"]
+            title = data["data"]["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
             vlink1 = data["data"]["download_link"]
             vlink2 = data["data"]["video_player_token"]
             plink1 = data["data"]["pdf_link"]
@@ -107,25 +107,25 @@ def process_folder(api, bid, fid, fname, headers, f):
         elif mtype == "VIDEO":
             vid = cdata["id"]
             title, vlink, plink1, plink2 = vapi(api, bid, vid, headers)
-            mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{vlink}\n"
+            mm = f"({fname}) {title}:{vlink}\n"
             f.write(mm)
             if plink1:
-                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{plink1}\n"
+                mm = f"({fname}) {title}:{plink1}\n"
                 f.write(mm)
             if plink2:
-                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')} (PDF-2):{plink2}\n"
+                mm = f"({fname}) {title} (PDF-2):{plink2}\n"
                 f.write(mm)
         elif mtype == "PDF":
-            title = cdata["Title"]
+            title = cdata["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
             plink1 = cdata["pdf_link"]
             plink2 = cdata["pdf_link2"]
             if plink1:
                 link = appx_dec(plink1)
-                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')}:{link}\n"
+                mm = f"({fname}) {title}:{link}\n"
                 f.write(mm)
             if plink2:
                 link = appx_dec(plink2)
-                mm = f"({fname}) {title.replace('||', '').replace('#', '').replace(':', '').replace(',', '')} (PDF-2):{link}\n"
+                mm = f"({fname}) {title} (PDF-2):{link}\n"
                 f.write(mm)
         elif mtype == "FOLDER":
             fid = cdata["id"]
