@@ -143,7 +143,7 @@ async def start(bot, m):
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
-        await editable.edit(f"Extracting From **{subject_title}**\n Please Wait Patiently 📥")
+        #await editable.edit(f"Extracting From **{subject_title}**\n Please Wait Patiently 📥")
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
@@ -160,6 +160,7 @@ async def start(bot, m):
             for video in gg:
                 if video.get("download_link"):
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
+                    await editable.edit(f"Extracting...♻️ **{subject_title} ➠ {video_title}**\nPlease Wait **Patiently**🌀")
                     fuck = video["download_link"]
                     video_link = decrypt((fuck).split(":")[0])
                     pdf_link = video["pdf_link"]
