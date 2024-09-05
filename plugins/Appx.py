@@ -184,7 +184,8 @@ async def start(bot, m):
                     try:
                         await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
                     except exception as e:
-                        print
+                        print(f"Waiting for {e.x} seconds before continuing")
+                        await asyncio.sleep(e.x)
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
