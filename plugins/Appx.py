@@ -129,6 +129,7 @@ async def start(bot, m):
     await editable.edit(f"**Batches Available are :-**\n\n**BATCH ID**  ➤  **BATCH NAME**\n\n{cool}\nSEND ID :")
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
+    await input1.delete(True)
 
     course_title = ""  
     for data in topicid:
