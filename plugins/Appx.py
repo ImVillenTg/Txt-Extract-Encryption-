@@ -161,7 +161,7 @@ async def start(bot, m):
             for video in gg:
                 if video.get("download_link"):
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
-                    await editable.edit(f"Extracting...♻️ **{subject_title} ➠ {video_title}**\nPlease Wait **Patiently**🌀")
+                    #await editable.edit(f"Extracting...♻️ **{subject_title} ➠ {video_title}**\nPlease Wait **Patiently**🌀")
                     fuck = video["download_link"]
                     video_link = decrypt((fuck).split(":")[0])
                     pdf_link = video["pdf_link"]
@@ -180,6 +180,7 @@ async def start(bot, m):
                 else:
                     video_id = video["id"]
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
+                    await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
