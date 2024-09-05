@@ -183,7 +183,7 @@ async def start(bot, m):
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     try:
                         await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
-                    except exception as e:
+                    except FloodWait as e:
                         print(f"Waiting for {e.x} seconds before continuing")
                         await asyncio.sleep(e.x)
                         await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
