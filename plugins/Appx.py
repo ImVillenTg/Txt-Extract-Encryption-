@@ -144,7 +144,6 @@ async def start(bot, m):
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
         await editable.edit(f"Extracting From **{subject_title}**\n Please Wait Patiently 📥")
-        await editable.delete()
         scraper = cloudscraper.create_scraper()
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
@@ -210,5 +209,6 @@ async def start(bot, m):
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])    
     os.remove(f"{course_title}.txt")
+    await editable.delete()
     await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
   
