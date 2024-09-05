@@ -19,6 +19,7 @@ import os
 import cloudscraper
 from Crypto.Cipher import AES
 import datetime
+import asyncio
 
 time = datetime.datetime.now().strftime("%d-%m-%Y")
 
@@ -208,10 +209,14 @@ async def start(bot, m):
                             total_links += 1
  
     caption_details = raw_text05.replace("api.cloudflare.net.in", "").replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("api.akamai.net.in", "").replace("api.teachx.in", "").replace("cloudflare.net.in", "").upper()
-    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"࿇ ══━━𝐑𝐄𝐗𝐎𝐃𝐀𝐒━━══ ࿇\n\n**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
-    await bot.send_media_group(m.chat.id, [file1])
-    await bot.send_media_group(my_data, [file1])    
-    os.remove(f"{course_title}.txt")
-    await editable.delete()
-    await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
+    try:
+        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"࿇ ══━━𝐑𝐄𝐗𝐎𝐃𝐀𝐒━━══ ࿇\n\n**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
+        await bot.send_media_group(m.chat.id, [file1])
+        await bot.send_media_group(my_data, [file1])    
+        os.remove(f"{course_title}.txt")
+        await editable.delete()
+        await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
+    except FloodWait as e:
+        print(f"FloodWait Triggered. Waiting for {5} second")
+        await asyncio.sleep(5)
   
