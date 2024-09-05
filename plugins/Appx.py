@@ -182,11 +182,11 @@ async def start(bot, m):
                     video_id = video["id"]
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     try:
-                        await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
+                        await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
                     except FloodWait as e:
                         print(f"Waiting for {e.value} seconds before continuing")
                         await asyncio.sleep(e.value)
-                        await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
+                        await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
