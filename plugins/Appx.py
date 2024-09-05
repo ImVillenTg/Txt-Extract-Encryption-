@@ -181,7 +181,10 @@ async def start(bot, m):
                 else:
                     video_id = video["id"]
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
-                    await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
+                    try:
+                        await editable.edit(f"**ᴇxᴛʀᴀᴄᴛɪɴɢ ᴅᴀᴛᴀ ꜰʀᴏᴍ {subject_title} ➠ {video_title}\n\nᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴘᴀᴛɪᴇɴᴛʟʏ** ⚙️")
+                    except exception as e:
+                        print
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
@@ -209,14 +212,10 @@ async def start(bot, m):
                             total_links += 1
  
     caption_details = raw_text05.replace("api.cloudflare.net.in", "").replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("apinew.teachx.in", "").replace ("api.akamai.net.in", "").replace("api.teachx.in", "").replace("cloudflare.net.in", "").upper()
-    try:
-        file1 = InputMediaDocument(f"{course_title}.txt", caption=f"࿇ ══━━𝐑𝐄𝐗𝐎𝐃𝐀𝐒━━══ ࿇\n\n**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
-        await bot.send_media_group(m.chat.id, [file1])
-        await bot.send_media_group(my_data, [file1])    
-        os.remove(f"{course_title}.txt")
-        await editable.delete()
-        await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
-    except FloodWait as e:
-        print(f"FloodWait Triggered. Waiting for {5} second")
-        await asyncio.sleep(5)
-  
+    file1 = InputMediaDocument(f"{course_title}.txt", caption=f"࿇ ══━━𝐑𝐄𝐗𝐎𝐃𝐀𝐒━━══ ࿇\n\n**🌀 Batch Id :** {raw_text1}\n\n**✳️ App :** {caption_details} (AppX V1)\n\n**📚 Batch :** `{course_title}`\n\n**🔰 Total Links :** {total_links}\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {time}")
+    await bot.send_media_group(m.chat.id, [file1])
+    await bot.send_media_group(my_data, [file1])    
+    os.remove(f"{course_title}.txt")
+    await editable.delete()
+    await bot.send_message(m.chat.id, "Batch Grabbing Done 🔰")
+    
