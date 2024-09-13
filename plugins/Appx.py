@@ -185,7 +185,7 @@ async def start(bot, m):
                         if gg:
                             video_link = decrypt((gg).split(":")[0])
                         else:
-                            video_link = "None" #f"https://api-solo-one.vercel.app/api/appx?bid={raw_text1}&vid={video_id}&folder_wise_course=1&api={raw_text05}"
+                            video_link = f"https://api-solo-one.vercel.app/api/appx?bid={raw_text1}&vid={video_id}&folder_wise_course=0&api={raw_text05}"
                         pdf_lk = output6['data']["pdf_link"]
                         pdf_lk2 = output6['data']["pdf_link2"]
                         if pdf_lk:
