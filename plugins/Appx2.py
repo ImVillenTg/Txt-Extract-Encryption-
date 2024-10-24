@@ -200,7 +200,8 @@ async def start(bot, m):
     input1 = await bot.listen(editable.chat.id)
     raw_text1 = input1.text
     await input1.delete(True)
-    
+
+    course_name = ""
     for data in html1:
         if data["id"] == raw_text1:
             course_id = raw_text1
@@ -210,7 +211,7 @@ async def start(bot, m):
             with open(f"{course_name}.txt", "w") as f:
                 process_folder(api, course_id, fid, fname, headers, f)
 
-    caption_details = api.replace("api.cloudflare.net.in", "").replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").upper()
+    caption_details = api.replace("api.cloudflare.net.in", "").replace("api.classx.co.in", "").replace("api.teachx.co.in", "").replace("api.appx.co.in", "").replace("api.teachx.in", "").replace("akamai.net.in", "").upper()
     file1 = InputMediaDocument(f"{course_name}.txt", caption=f"࿇ ══━━𝐑𝐄𝐗𝐎𝐃𝐀𝐒━━══ ࿇\n\n**🌀 Batch Id :** {course_id}\n\n**✳️ App :** {caption_details} (AppX V2)\n\n**📚 Batch :** `{course_name}`\n\n**🌪️ Thumb :** `{batch_logo}`\n\n**❄️ Date :** {current_time}")
     await bot.send_media_group(m.chat.id, [file1])
     await bot.send_media_group(my_data, [file1])
