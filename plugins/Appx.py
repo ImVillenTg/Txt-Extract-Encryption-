@@ -190,7 +190,6 @@ async def start(bot, m):
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
                     for data in output6:
-                       
                         vt = data"Title"]
                         vl = data["download_link"]
                         if vl:
