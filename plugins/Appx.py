@@ -33,24 +33,36 @@ def decode_base64(encoded_str):
         return decoded_str
     except Exception as e:
         return f"Error decoding string: {e}"
-
-def decrypt(enc):
+def decrypt(text):
+    key = '638udh3829162018'
+    key = bytearray(key.encode())
+    iv_key = 'fedcba9876543210'
+    iv_key = bytearray(iv_key.encode())
+    bs = 16
+    
+    # Use PKCS7 padding
+    PADDING = lambda s: s + (bs - len(s) % bs) * bytes([bs - len(s) % bs])
+    
+    generator = AES.new(key, AES.MODE_CBC, iv_key)
+    
+    # Pad the base64 string 
+    text += '=' * ((4 - len(text) % 4) % 4)
+    
     try:
-        enc = b64decode(enc.split(':')[0] + '==')
-        key = '638udh3829162018'.encode('utf-8')
-        iv = 'fedcba9876543210'.encode('utf-8')
-        if len(enc) == 0:
-            return ""
-
-        cipher = AES.new(key, AES.MODE_CBC, iv)
-        plaintext = unpad(cipher.decrypt(enc), AES.block_size)
-        return plaintext.decode('utf-8')
-    except (binascii.Error, ValueError) as e:
-        print(f"Decryption error: {e}")
-        return ""
-    except Exception as e:
-        print(f"Unexpected error during decryption: {e}")
-        return ""
+        decrpyt_bytes = base64.b64decode(text)
+    except base64.binascii.Error:
+        return 'Invalid base64-encoded string'
+    
+    # Decrypt using AES
+    meg = generator.decrypt(decrpyt_bytes)
+    
+    # Remove the PKCS7 padding after decoding
+    try:
+        result = meg[:-meg[-1]].decode('utf-8')
+    except Exception:
+        result = 'Decoding failed, please try again!'
+    
+    return result
 
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 #@bot.on_message(filters.command("api"))
@@ -172,20 +184,20 @@ async def start(bot, m):
                     video_id = video["id"]
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     scraper = cloudscraper.create_scraper()            
-                    html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
+                    html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
                     for link in output6:
-                        vt = link["Title"]
-                        vl = link["download_link"]
+                        vt = link["Title", ""]
+                        vl = link["download_link", ""]
                         if vl:
-                            dvl = decrypt(vl)
+                            dvl = decrypt((vl).split(":")[0])
                             video_link += f"\n({subject_title}) {vt}:{dvl}"
                         else:
                             vl = link["encrypted_links"][0]["path"]
-                            vll = decrypt(vl)
+                            vll = decrypt((vl)..split(":")[0])
                             k = link["encrypted_links"][0]["key"]
                             if k:
-                                k1 = decrypt(k)
+                                k1 = decrypt((k)..split(":")[0])
                                 k2 = decode_base64(k1)
                                 video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
                             else:
