@@ -180,12 +180,22 @@ async def start(bot, m):
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
-                    if output6['data'] is not None:
-                        gg = output6['data'].get('download_link')
-                        if gg:
-                            video_link = decrypt((gg).split(":")[0])
+                    if output6:
+                        vt = output6["data"].get("Title", "")
+                        vl = output6["data"].get("download_link", "")
+                        if vl:
+                            dvl = decrypt(vl)
+                            video_link += f"\n({subject_title}) {vt}:{dvl}"
                         else:
-                            video_link = "None"
+                            vl = output6["data"]["encrypted_links"][0]["path"]
+                            vll = decrypt(vl)
+                            k = output6["data"]["encrypted_links"][0]["key"]
+                            if k:
+                                k1 = decrypt(k)
+                                k2 = decode_base64(k1)
+                                video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
+                            else:
+                                video_link += f"\n({subject_title}) {vt}:{vll}"
                         pdf_lk = output6['data']["pdf_link"]
                         pdf_lk2 = output6['data']["pdf_link2"]
                         if pdf_lk:
