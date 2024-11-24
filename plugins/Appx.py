@@ -189,24 +189,24 @@ async def start(bot, m):
                     scraper = cloudscraper.create_scraper()            
                     html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=0&folder_wise_course=0", headers=hdr).content
                     output6 = json.loads(html6)  
-                    for data in output6:
-                        vt = data"Title"]
-                        vl = data["download_link"]
+                    for link in output6:
+                        vt = link["Title"]
+                        vl = link["download_link"]
                         if vl:
                             dvl = decrypt(vl)
                             video_link += f"\n({subject_title}) {vt}:{dvl}"
                         else:
-                            vl = data["encrypted_links"][0]["path"]
+                            vl = link["encrypted_links"][0]["path"]
                             vll = decrypt(vl)
-                            k = data["encrypted_links"][0]["key"]
+                            k = link["encrypted_links"][0]["key"]
                             if k:
                                 k1 = decrypt(k)
                                 k2 = decode_base64(k1)
                                 video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
                             else:
                                 video_link += f"\n({subject_title}) {vt}:{vll}"
-                        pdf_lk = output6['data']["pdf_link"]
-                        pdf_lk2 = output6['data']["pdf_link2"]
+                        pdf_lk = link["pdf_link"]
+                        pdf_lk2 = link["pdf_link2"]
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk.split(":")[0])
                             video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
