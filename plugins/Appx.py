@@ -13,6 +13,7 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import User, Message
 import logging
 import main
+import binascii
 import config
 import time
 import asyncio
