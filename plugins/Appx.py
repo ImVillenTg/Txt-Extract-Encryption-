@@ -144,7 +144,7 @@ async def start(bot, m):
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
         vv = output4["data"]
-        tsids_list = []
+        #tsids_list = []
         for data in vv:
             tsids = data['topicid']
             #tsids_list.append(tsids)
