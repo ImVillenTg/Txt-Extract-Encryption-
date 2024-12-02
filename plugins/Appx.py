@@ -33,36 +33,24 @@ def decode_base64(encoded_str):
         return decoded_str
     except Exception as e:
         return f"Error decoding string: {e}"
-def decrypt(text):
-    key = '638udh3829162018'
-    key = bytearray(key.encode())
-    iv_key = 'fedcba9876543210'
-    iv_key = bytearray(iv_key.encode())
-    bs = 16
-    
-    # Use PKCS7 padding
-    PADDING = lambda s: s + (bs - len(s) % bs) * bytes([bs - len(s) % bs])
-    
-    generator = AES.new(key, AES.MODE_CBC, iv_key)
-    
-    # Pad the base64 string 
-    text += '=' * ((4 - len(text) % 4) % 4)
-    
+
+def decrypt(enc):
     try:
-        decrpyt_bytes = base64.b64decode(text)
-    except base64.binascii.Error:
-        return 'Invalid base64-encoded string'
-    
-    # Decrypt using AES
-    meg = generator.decrypt(decrpyt_bytes)
-    
-    # Remove the PKCS7 padding after decoding
-    try:
-        result = meg[:-meg[-1]].decode('utf-8')
-    except Exception:
-        result = 'Decoding failed, please try again!'
-    
-    return result
+        enc = b64decode(enc.split(':')[0] + '==')
+        key = '638udh3829162018'.encode('utf-8')
+        iv = 'fedcba9876543210'.encode('utf-8')
+        if len(enc) == 0:
+            return ""
+
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        plaintext = unpad(cipher.decrypt(enc), AES.block_size)
+        return plaintext.decode('utf-8')
+    except (binascii.Error, ValueError) as e:
+        print(f"Decryption error: {e}")
+        return ""
+    except Exception as e:
+        print(f"Unexpected error during decryption: {e}")
+        return ""
 
 @bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 #@bot.on_message(filters.command("api"))
@@ -166,15 +154,15 @@ async def start(bot, m):
                 if video.get("download_link"):
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                     fuck = video["download_link"]
-                    video_link = decrypt((fuck).split(":")[0])
+                    video_link = decrypt(fuck)
                     pdf_link = video["pdf_link"]
                     pdf_link2 = video["pdf_link2"]
                     if pdf_link and pdf_link != fuck:
-                        pdf_link_decrypted = decrypt(pdf_link.split(":")[0])
+                        pdf_link_decrypted = decrypt(pdf_link)
                         video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                         total_links += 1
                     if pdf_link2:
-                        pdf_link2_decrypted = decrypt(pdf_link2.split(":")[0])
+                        pdf_link2_decrypted = decrypt(pdf_link2)
                         video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
                         total_links += 1
                     with open(f"{course_title}.txt", 'a') as f:
@@ -194,10 +182,10 @@ async def start(bot, m):
                             video_link += f"\n({subject_title}) {vt}:{dvl}"
                         else:
                             vl = link["encrypted_links"][0]["path"]
-                            vll = decrypt((vl)..split(":")[0])
+                            vll = decrypt(vl)
                             k = link["encrypted_links"][0]["key"]
                             if k:
-                                k1 = decrypt((k)..split(":")[0])
+                                k1 = decrypt((k)
                                 k2 = decode_base64(k1)
                                 video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
                             else:
@@ -205,11 +193,11 @@ async def start(bot, m):
                         pdf_lk = link["pdf_link"]
                         pdf_lk2 = link["pdf_link2"]
                         if pdf_lk:
-                            pdf_link_decrypted = decrypt(pdf_lk.split(":")[0])
+                            pdf_link_decrypted = decrypt(pdf_lk)
                             video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                             total_links += 1
                         if pdf_lk2:
-                            pdf_link2_decrypted = decrypt(pdf_lk2.split(":")[0])
+                            pdf_link2_decrypted = decrypt(pdf_lk)
                             video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
                             total_links += 1
                         else:
