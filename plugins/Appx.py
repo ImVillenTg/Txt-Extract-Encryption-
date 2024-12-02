@@ -158,10 +158,10 @@ async def start(bot, m):
                 
                 # Handle video links
                 if video_link:
-                    decrypted_link = decrypt(video_link)
-                    link_entry = f"({subject_title}) {video_title}: {decrypted_link}"
-                    if link_entry not in unique_links:
-                        unique_links.add(link_entry)
+                    decrypted_video = decrypt(video_link)
+                    video_entry = f"({subject_title}) {video_title}: {decrypted_video}"
+                    if video_entry not in unique_links:
+                        unique_links.add(video_entry)
                         total_links += 1
 
                 # Handle PDF links
