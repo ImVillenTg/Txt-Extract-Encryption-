@@ -14,9 +14,9 @@ import datetime
 
 # Configurations
 time = datetime.datetime.now().strftime("%d-%m-%Y")
-my_data = -1001938939742  # Example Group ID
-sudo_group = []  # Your sudo group here
-ADMINS = []  # Your admin users here
+my_data = -1001938939742 
+sudo_group = config.GROUPS
+ADMINS = config.ADMINS
 
 def decode_base64(encoded_str):
     try:
