@@ -186,6 +186,7 @@ async def start(bot, m):
 
     caption_details = raw_text05.upper().replace("api.cloudflare.net.in", "").replace("api.classx.co.in", "").replace("api.teachx.co.in", "")
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**🌐 Batch ID:** {raw_text1}\n**📘 Batch:** `{course_title}`\n**🗒 Total Links:** {total_links}\n**📆 Date:** {time}")
-    await bot.send_document(my_data, file1)
+    await bot.send_media_group(m.chat.id, [file1])
+    await bot.send_media_group(my_data, [file1])
     os.remove(f"{course_title}.txt")
     await bot.send_message(m.chat.id, "Batch Grabbing Done ✅")
