@@ -66,8 +66,8 @@ async def start(bot, m):
     data = {
         'email': '',
         'password': '',
-        'devicetoken': 'devicetoken_value',  # Replace as necessary
-        'mydeviceid': 'deviceid_value',     # Replace as necessary
+        'devicetoken': 'evxVp-BBB3I:APA91bFSglfbsDx7kYeVNnOszxud1cUyXj-p54ejyaSvItmM7p5EPH9iyZKKk0N66gROVI3cRWVg1Bvy4tuBsU1VPulrjKqoiF644NI9dqKUswrnOc5TLd0ZHrTZsgy6tSLpcG6OMz7F',
+        'mydeviceid': 'e4be9d04e8ca6e44',
     }
 
     input: Message = await bot.listen(editable.chat.id)
