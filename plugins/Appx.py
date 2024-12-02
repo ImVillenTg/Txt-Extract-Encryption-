@@ -146,40 +146,39 @@ async def start(bot, m):
             tsids = data['topicid']
             tsids_list.append(tsids)
         for tsids in tsids_list:
-            scraper = cloudscraper.create_scraper()            
-            html5 = scraper.get("https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
-            output5 = json.loads(html5)
-            gg = output5["data"]
-            for video in gg:
-                video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
-                video_link = video["download_link"]
+            response5 = requests.get(f"https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).json
+            for i in range(len(response5["data"]
+                video_title = response5["data"][i]["Title"].strip #.replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
+                video_link = response5["data"][i]["download_link"]
                 if video_link:
-                    rexo = decrypt(video_link)
-                    video_link += f"\n({subject_title}) {video_title} :{rexo}"
+                    rexo = decrypt(video_link)      
+                    video_link += f"\n({subject_title}) {video_title}:{rexo}"
+                    total_links += 1
                 else:
-                    video_id = video["id"]
-                    video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
-                    scraper = cloudscraper.create_scraper()            
-                    html6 = scraper.get("https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).content
-                    output6 = json.loads(html6)  
-                    for link in output6:
-                        vt = link["Title", ""]
-                        vl = link["download_link", ""]
+                    video_id = response5["data"][i]["id"]  
+                    cleaned_json = requests.get(f"https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).json
+                    time.sleep(1)            
+                    if cleaned_json:
+                        vt = cleaned_json["data"].get["Title", ""]
+                        vl = cleaned_json["data"].get["download_link", ""]
                         if vl:
                             dvl = decrypt((vl)
                             video_link += f"\n({subject_title}) {vt}:{dvl}"
+                            total_links += 1
                         else:
-                            vl = link["encrypted_links"][0]["path"]
+                            vl = cleaned_json["data"]["encrypted_links"][0]["path"]
                             vll = decrypt(vl)
-                            k = link["encrypted_links"][0]["key"]
+                            k = cleaned_json["data"]["encrypted_links"][0]["key"]
                             if k:
                                 k1 = decrypt((k)
                                 k2 = decode_base64(k1)
                                 video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
+                                total_links += 1
                             else:
                                 video_link += f"\n({subject_title}) {vt}:{vll}"
-                        pdf_lk = link["pdf_link", ""]
-                        pdf_lk2 = link["pdf_link2", ""]
+                                total_links += 1
+                        pdf_lk = cleaned_json["data"].get["pdf_link", ""]
+                        pdf_lk2 = cleaned_json["data"].get["pdf_link2", ""]
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk)
                             video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
