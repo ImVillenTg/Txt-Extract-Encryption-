@@ -161,6 +161,34 @@ async def start(bot, m):
                         total_links += 1
                 else:
                     video_id = reponse5["data"][i]["id"]
+                    cleaned_json = requests.get(f"https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).json()
+                    #time.sleep(1)            
+                    if cleaned_json:
+                        vt = cleaned_json["data"].get("Title", "")
+                        vl = cleaned_json["data"].get("download_link", "")
+                        if vl:
+                            dvl = decrypt(vl)
+                            video_entry = f"({subject_title}) {vt}:{dvl}"
+                            if video_entry not in unique_links:
+                                unique_links.add(video_entry)
+                                total_links += 1
+                        else:
+                            vl = cleaned_json["data"]["encrypted_links"][0]["path"]
+                            vll = decrypt(vl)
+                            k = cleaned_json["data"]["encrypted_links"][0]["key"]
+                            if k:
+                                k1 = decrypt(k)
+                                k2 = decode_base64(k1)
+                                video_entry = f"({subject_title}) {vt}:{vll}*{k2}"
+                                if video_entry not in unique_links:
+                                    unique_links.add(video_entry)
+                                    total_links += 1
+                            else:
+                                video_entry = f"\n({subject_title}) {vt}:{vll}"
+                                if video_entry not in unique_links:
+                                    unique_links.add(video_entry)
+                                    total_links += 1
+                                
                     
                 # Handle PDF links
                 if pdf_link1:
