@@ -5,6 +5,7 @@ from pyrogram.types.messages_and_media import message
 from pyromod import listen
 from pyrogram.types import Message
 import pyrogram
+from Crypto.Util.Padding import unpad
 from pyrogram import Client, filters
 from pyrogram import Client as bot
 from pyrogram.types.messages_and_media import message
