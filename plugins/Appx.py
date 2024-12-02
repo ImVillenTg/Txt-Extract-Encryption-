@@ -12,8 +12,8 @@ import datetime
 
 time = datetime.datetime.now().strftime("%d-%m-%Y")
 my_data = -100193893974
-sudo_group = []
-ADMINS = []
+sudo_group = config.GROUPS
+ADMINS = config.ADMINS
 
 def decode_base64(encoded_str):
     try:
