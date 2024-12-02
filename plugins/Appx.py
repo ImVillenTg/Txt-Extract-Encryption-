@@ -1,11 +1,23 @@
 import json
 import requests
 from pyrogram.types import InputMediaDocument
+from pyrogram.types.messages_and_media import message
 from pyromod import listen
-from pyrogram import Client, filters
-from Crypto.Util.Padding import unpad
 from pyrogram.types import Message
+import pyrogram
+from Crypto.Util.Padding import unpad
+from pyrogram import Client, filters
+from pyrogram import Client as bot
+from pyrogram.types.messages_and_media import message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.errors import FloodWait
+from pyrogram.types import User, Message
+import logging
+import main
 import binascii
+import config
+import time
+import asyncio
 import base64
 import os
 import cloudscraper
@@ -13,9 +25,9 @@ from Crypto.Cipher import AES
 import datetime
 
 time = datetime.datetime.now().strftime("%d-%m-%Y")
-my_data = -1001938939742  # Replace with your channel/group ID
-sudo_group = config.GROUPS  # Replace with your config group
-ADMINS = config.ADMINS      # Replace with your admins
+my_data = -1001938939742  
+sudo_group = config.GROUPS  
+ADMINS = config.ADMINS      
 
 # Base64 decode helper
 def decode_base64(encoded_str):
