@@ -157,7 +157,7 @@ async def start(bot, m):
                     total_links += 1
                 else:
                     video_id = response5["data"][i]["id"]  
-                    cleaned_json = requests.get(f"https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).json
+                    cleaned_json = requests.get(f"https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).json()
                     time.sleep(1)            
                     if cleaned_json:
                         vt = cleaned_json["data"].get("Title", "")
