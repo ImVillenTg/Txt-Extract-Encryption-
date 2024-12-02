@@ -156,7 +156,7 @@ async def start(bot, m):
                 video_link = response5["data"][i]["download_link"]
                 if video_link:
                     rexo = decrypt(video_link)      
-                    video_link += f"\n({subject_title}) {video_title}:{rexo}"
+                    rexop += f"\n({subject_title}) {video_title}:{rexo}"
                     total_links += 1
                 else:
                     video_id = response5["data"][i]["id"]  
@@ -167,7 +167,7 @@ async def start(bot, m):
                         vl = cleaned_json["data"].get("download_link", "")
                         if vl:
                             dvl = decrypt(vl)
-                            video_link += f"\n({subject_title}) {vt}:{dvl}"
+                            rexop += f"\n({subject_title}) {vt}:{dvl}"
                             total_links += 1
                         else:
                             vl = cleaned_json["data"]["encrypted_links"][0]["path"]
@@ -176,23 +176,23 @@ async def start(bot, m):
                             if k:
                                 k1 = decrypt(k)
                                 k2 = decode_base64(k1)
-                                video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
+                                rexop += f"\n({subject_title}) {vt}:{vll}*{k2}"
                                 total_links += 1
                             else:
-                                video_link += f"\n({subject_title}) {vt}:{vll}"
+                                rexop += f"\n({subject_title}) {vt}:{vll}"
                                 total_links += 1
                         pdf_lk = cleaned_json["data"].get("pdf_link", "")
                         pdf_lk2 = cleaned_json["data"].get("pdf_link2", "")
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk)
-                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
+                            rexop += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                             total_links += 1
                         if pdf_lk2:
                             pdf_link_decrypted2 = decrypt(pdf_lk2)
-                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}"
+                            rexop += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}"
                             total_links += 1
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write(video_link+"\n")
+                    f.write(rexop+"\n")
     caption_details = raw_text05.upper().replace("api.cloudflare.net.in","").replace("api.classx.co.in","").replace("api.teachx.co.in","")
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**ðŸŒ Batch ID:** {raw_text1}\n**ðŸ“› Batch:** `{course_title}`\n**ðŸ”— Total Links:** {total_links}\n**ðŸ—“ Date:** {time}")
     await bot.send_media_group(my_data, [file1])
