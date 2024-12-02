@@ -153,17 +153,15 @@ async def start(bot, m):
             for i in range(len(response5["data"])):
                 video_title = response5["data"][i]["Title"].strip()
                 video_link = response5["data"][i]["download_link"]
-                pdf_link1 = response5["data"][i].get("pdf_link", "")
-                pdf_link2 = response5["data"][i].get("pdf_link2", "")
-                
-                # Handle video links
                 if video_link:
                     decrypted_video = decrypt(video_link)
                     video_entry = f"({subject_title}) {video_title}: {decrypted_video}"
                     if video_entry not in unique_links:
                         unique_links.add(video_entry)
                         total_links += 1
-
+                else:
+                    video_id = reponse5["data"][i]["id"]
+                    
                 # Handle PDF links
                 if pdf_link1:
                     decrypted_pdf1 = decrypt(pdf_link1)
