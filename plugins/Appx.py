@@ -190,8 +190,8 @@ async def start(bot, m):
                                     total_links += 1
 
                 
-                        pdf_lk = cleaned_json["data"].get("pdf_link", "")
-                        pdf_lk2 = cleaned_json["data"].get("pdf_link2", "")
+                        pdf_link1 = cleaned_json["data"].get("pdf_link", "")
+                        pdf_link2 = cleaned_json["data"].get("pdf_link2", "")
                         if pdf_link1:
                             decrypted_pdf1 = decrypt(pdf_link1)
                             pdf_entry1 = f"({subject_title}) {video_title} PDF 1: {decrypted_pdf1}"
