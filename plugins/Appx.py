@@ -1,15 +1,25 @@
-# Debugged Appx.py to ensure extraction and writing
+
 import json
 import requests
 from pyrogram.types import InputMediaDocument
+from pyrogram.types.messages_and_media import message
+from pyromod import listen
+from pyrogram.types import Message
+import pyrogram
 from pyrogram import Client, filters
+from pyrogram import Client as bot
+from pyrogram.types.messages_and_media import message
+from pyrogram.errors import FloodWait
+from pyrogram.types import User, Message
+import logging
+import main
+import config
+import asyncio
 import base64
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import unpad
 import os
 import cloudscraper
+from Crypto.Cipher import AES
 import datetime
-
 # Configurations
 time = datetime.datetime.now().strftime("%d-%m-%Y")
 my_data = -1001938939742  # Example Group ID
