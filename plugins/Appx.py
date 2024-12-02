@@ -1,13 +1,24 @@
 import json
 import requests
 from pyrogram.types import InputMediaDocument
+from pyrogram.types.messages_and_media import message
+from pyromod import listen
+from pyrogram.types import Message
+import pyrogram
 from pyrogram import Client, filters
+from pyrogram import Client as bot
+from pyrogram.types.messages_and_media import message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.errors import FloodWait
+from pyrogram.types import User, Message
+import logging
+import main
+import config
+import asyncio
 import base64
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import unpad
-import time
 import os
 import cloudscraper
+from Crypto.Cipher import AES
 import datetime
 
 time = datetime.datetime.now().strftime("%d-%m-%Y")
@@ -33,7 +44,7 @@ def decrypt(enc):
     except Exception as e:
         return f"Error decrypting: {e}"
 
-@Client.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
+@bot.on_message(filters.command("api") & (filters.chat(sudo_group) | filters.user(ADMINS)))
 async def start(bot, m):
     editable = await bot.send_message(m.chat.id, "**🌐 Enter API URL:**")
     input01 = await bot.listen(editable.chat.id)
