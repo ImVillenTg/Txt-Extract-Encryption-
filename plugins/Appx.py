@@ -151,23 +151,11 @@ async def start(bot, m):
             output5 = json.loads(html5)
             gg = output5["data"]
             for video in gg:
-                if video.get("download_link"):
-                    video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
-                    fuck = video["download_link"]
-                    video_link = decrypt(fuck)
-                    pdf_link = video["pdf_link"]
-                    pdf_link2 = video["pdf_link2"]
-                    if pdf_link and pdf_link != fuck:
-                        pdf_link_decrypted = decrypt(pdf_link)
-                        video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
-                        total_links += 1
-                    if pdf_link2:
-                        pdf_link2_decrypted = decrypt(pdf_link2)
-                        video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link2_decrypted}"
-                        total_links += 1
-                    with open(f"{course_title}.txt", 'a') as f:
-                        f.write(f"({subject_title}) {video_title}:{video_link}\n")
-                        total_links += 1
+                video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
+                video_link = video["download_link"]
+                if video_link:
+                    rexo = decrypt(video_link)
+                    video_link += f"\n({subject_title}) {video_title} :{rexo}"
                 else:
                     video_id = video["id"]
                     video_title = video["Title"].replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
@@ -178,7 +166,7 @@ async def start(bot, m):
                         vt = link["Title", ""]
                         vl = link["download_link", ""]
                         if vl:
-                            dvl = decrypt((vl).split(":")[0])
+                            dvl = decrypt((vl)
                             video_link += f"\n({subject_title}) {vt}:{dvl}"
                         else:
                             vl = link["encrypted_links"][0]["path"]
@@ -190,8 +178,8 @@ async def start(bot, m):
                                 video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
                             else:
                                 video_link += f"\n({subject_title}) {vt}:{vll}"
-                        pdf_lk = link["pdf_link"]
-                        pdf_lk2 = link["pdf_link2"]
+                        pdf_lk = link["pdf_link", ""]
+                        pdf_lk2 = link["pdf_link2", ""]
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk)
                             video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
@@ -200,8 +188,6 @@ async def start(bot, m):
                             pdf_link2_decrypted = decrypt(pdf_lk)
                             video_link += f"\n({subject_title}) {video_title} PDF-2:{pdf_link_decrypted}"
                             total_links += 1
-                        else:
-                            pdf_link2_decrypted = "None"
                         
                         with open(f"{course_title}.txt", 'a') as f:
                             f.write(f"({subject_title}) {video_title}:{video_link}\n")
