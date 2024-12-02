@@ -39,7 +39,7 @@ def decode_base64(encoded_str):
 
 def decrypt(enc):
     try:
-        enc = b64decode(enc.split(':')[0] + '==')
+        enc = base64.b64decode(enc.split(':')[0] + '==')
         key = '638udh3829162018'.encode('utf-8')
         iv = 'fedcba9876543210'.encode('utf-8')
         if len(enc) == 0:
