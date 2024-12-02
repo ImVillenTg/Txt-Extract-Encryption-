@@ -160,7 +160,7 @@ async def start(bot, m):
                         unique_links.add(video_entry)
                         total_links += 1
                 else:
-                    video_id = reponse5["data"][i]["id"]
+                    video_id = response5["data"][i]["id"]
                     cleaned_json = requests.get(f"https://"+raw_text05+"/get/fetchVideoDetailsById?course_id=" + raw_text1 + "&video_id=" + video_id + "&ytflag=&folder_wise_course=0", headers=hdr).json()
                     #time.sleep(1)            
                     if cleaned_json:
@@ -188,22 +188,23 @@ async def start(bot, m):
                                 if video_entry not in unique_links:
                                     unique_links.add(video_entry)
                                     total_links += 1
-                                
-                    
-                # Handle PDF links
-                if pdf_link1:
-                    decrypted_pdf1 = decrypt(pdf_link1)
-                    pdf_entry1 = f"({subject_title}) {video_title} PDF 1: {decrypted_pdf1}"
-                    if pdf_entry1 not in unique_links:
-                        unique_links.add(pdf_entry1)
-                        total_links += 1
 
-                if pdf_link2:
-                    decrypted_pdf2 = decrypt(pdf_link2)
-                    pdf_entry2 = f"({subject_title}) {video_title} PDF 2: {decrypted_pdf2}"
-                    if pdf_entry2 not in unique_links:
-                        unique_links.add(pdf_entry2)
-                        total_links += 1
+                
+                        pdf_lk = cleaned_json["data"].get("pdf_link", "")
+                        pdf_lk2 = cleaned_json["data"].get("pdf_link2", "")
+                        if pdf_link1:
+                            decrypted_pdf1 = decrypt(pdf_link1)
+                            pdf_entry1 = f"({subject_title}) {video_title} PDF 1: {decrypted_pdf1}"
+                            if pdf_entry1 not in unique_links:
+                                unique_links.add(pdf_entry1)
+                                total_links += 1
+
+                        if pdf_link2:
+                            decrypted_pdf2 = decrypt(pdf_link2)
+                            pdf_entry2 = f"({subject_title}) {video_title} PDF 2: {decrypted_pdf2}"
+                            if pdf_entry2 not in unique_links:
+                                unique_links.add(pdf_entry2)
+                                total_links += 1
 
     # Write all unique links to the file
     with open(f"{course_title}.txt", 'w') as f:
