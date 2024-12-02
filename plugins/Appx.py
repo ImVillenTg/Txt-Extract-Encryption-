@@ -147,7 +147,7 @@ async def start(bot, m):
             tsids = data['topicid']
             tsids_list.append(tsids)
         for tsids in tsids_list:
-            response5 = requests.get(f"https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).json
+            response5 = requests.get(f"https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).json()
             for i in range(len(response5["data"])):
                 video_title = response5["data"][i]["Title"].strip() #.replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                 video_link = response5["data"][i]["download_link"]
