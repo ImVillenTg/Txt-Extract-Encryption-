@@ -138,7 +138,7 @@ async def start(bot, m):
     html3 = scraper.get("https://"+raw_text05+"/get/allsubjectfrmlivecourseclass?courseid=" + raw_text1, headers=hdr).content
     output3 = json.loads(html3)
     topicid = output3["data"]
-    rexo_list = []
+    rexo_list = set()
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
@@ -152,13 +152,12 @@ async def start(bot, m):
             #tsids_list.append(tsids)
         #for tsids in tsids_list:
             response5 = requests.get(f"https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).json()
-            rexop = ""
             for i in range(len(response5["data"])):
                 video_title = response5["data"][i]["Title"].strip() #.replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                 video_link = response5["data"][i]["download_link"]
                 if video_link:
                     rexo = decrypt(video_link)      
-                    rexo_list.append(f"\n({subject_title}) {video_title}:{rexo}")
+                    rexo_list.add(f"\n({subject_title}) {video_title}:{rexo}")
                     total_links += 1
                 else:
                     video_id = response5["data"][i]["id"]  
@@ -169,7 +168,7 @@ async def start(bot, m):
                         vl = cleaned_json["data"].get("download_link", "")
                         if vl:
                             dvl = decrypt(vl)
-                            rexo_list.append(f"\n({subject_title}) {vt}:{dvl}")
+                            rexo_list.add(f"\n({subject_title}) {vt}:{dvl}")
                             total_links += 1
                         else:
                             vl = cleaned_json["data"]["encrypted_links"][0]["path"]
@@ -178,20 +177,20 @@ async def start(bot, m):
                             if k:
                                 k1 = decrypt(k)
                                 k2 = decode_base64(k1)
-                                rexo_list.append(f"\n({subject_title}) {vt}:{vll}*{k2}")
+                                rexo_list.add(f"\n({subject_title}) {vt}:{vll}*{k2}")
                                 total_links += 1
                             else:
-                                rexo_list.append(f"\n({subject_title}) {vt}:{vll}")
+                                rexo_list.add(f"\n({subject_title}) {vt}:{vll}")
                                 total_links += 1
                         pdf_lk = cleaned_json["data"].get("pdf_link", "")
                         pdf_lk2 = cleaned_json["data"].get("pdf_link2", "")
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk)
-                            rexo_list.append(f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}")
+                            rexo_list.add(f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}")
                             total_links += 1
                         if pdf_lk2:
                             pdf_link_decrypted2 = decrypt(pdf_lk2)
-                            rexo_list.append(f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}")
+                            rexo_list.add(f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}")
                             total_links += 1
                 with open(f"{course_title}.txt", 'a') as f:
                     f.write("\n".join(rexo_list))
