@@ -138,7 +138,7 @@ async def start(bot, m):
     html3 = scraper.get("https://"+raw_text05+"/get/allsubjectfrmlivecourseclass?courseid=" + raw_text1, headers=hdr).content
     output3 = json.loads(html3)
     topicid = output3["data"]
-    rexo_list = set()
+    
     for topic in topicid:
         tids = topic["subjectid"]
         subject_title = topic["subject_name"].replace(':', '')
@@ -146,18 +146,18 @@ async def start(bot, m):
         html4 = scraper.get("https://"+raw_text05+"/get/alltopicfrmlivecourseclass?courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).content
         output4 = json.loads(html4)
         vv = output4["data"]
-        #tsids_list = []
+        tsids_list = []
         for data in vv:
             tsids = data['topicid']
-            #tsids_list.append(tsids)
-        #for tsids in tsids_list:
+            tsids_list.append(tsids)
+        for tsids in tsids_list:
             response5 = requests.get(f"https://"+raw_text05+"/get/livecourseclassbycoursesubtopconceptapiv3?topicid=" + tsids + "&start=-1&courseid=" + raw_text1 + "&subjectid=" + tids, headers=hdr).json()
             for i in range(len(response5["data"])):
                 video_title = response5["data"][i]["Title"].strip() #.replace('||', '').replace('#', '').replace(':', '').replace(',', '').replace('@', '').replace('|', '')
                 video_link = response5["data"][i]["download_link"]
                 if video_link:
                     rexo = decrypt(video_link)      
-                    rexo_list.add(f"({subject_title}) {video_title}:{rexo}")
+                    video_link += f"\n({subject_title}) {video_title}:{rexo}"
                     total_links += 1
                 else:
                     video_id = response5["data"][i]["id"]  
@@ -168,7 +168,7 @@ async def start(bot, m):
                         vl = cleaned_json["data"].get("download_link", "")
                         if vl:
                             dvl = decrypt(vl)
-                            rexo_list.add(f"({subject_title}) {vt}:{dvl}")
+                            video_link += f"\n({subject_title}) {vt}:{dvl}"
                             total_links += 1
                         else:
                             vl = cleaned_json["data"]["encrypted_links"][0]["path"]
@@ -177,23 +177,25 @@ async def start(bot, m):
                             if k:
                                 k1 = decrypt(k)
                                 k2 = decode_base64(k1)
-                                rexo_list.add(f"({subject_title}) {vt}:{vll}*{k2}")
+                                video_link += f"\n({subject_title}) {vt}:{vll}*{k2}"
                                 total_links += 1
                             else:
-                                rexo_list.add(f"({subject_title}) {vt}:{vll}")
+                                video_link += f"\n({subject_title}) {vt}:{vll}"
                                 total_links += 1
                         pdf_lk = cleaned_json["data"].get("pdf_link", "")
                         pdf_lk2 = cleaned_json["data"].get("pdf_link2", "")
                         if pdf_lk:
                             pdf_link_decrypted = decrypt(pdf_lk)
-                            rexo_list.add(f"({subject_title}) {video_title} PDF:{pdf_link_decrypted}")
+                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted}"
                             total_links += 1
                         if pdf_lk2:
                             pdf_link_decrypted2 = decrypt(pdf_lk2)
-                            rexo_list.add(f"({subject_title}) {video_title} PDF:{pdf_link_decrypted2}")
+                            video_link += f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}"
                             total_links += 1
-                with open(f"{course_title}.txt", 'a') as f:
-                    f.write("\n".join(rexo_list))
+                        with open(f"{course_title}.txt", 'a') as f:
+                            f.write(video_link+ "\n")
+                
+                
     caption_details = raw_text05.upper().replace("api.cloudflare.net.in","").replace("api.classx.co.in","").replace("api.teachx.co.in","")
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**ðŸŒ Batch ID:** {raw_text1}\n**ðŸ“› Batch:** `{course_title}`\n**ðŸ”— Total Links:** {total_links}\n**ðŸ—“ Date:** {time}")
     await bot.send_media_group(my_data, [file1])
