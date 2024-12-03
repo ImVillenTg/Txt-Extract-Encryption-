@@ -194,7 +194,7 @@ async def start(bot, m):
                             rexo_list.append(f"\n({subject_title}) {video_title} PDF:{pdf_link_decrypted2}")
                             total_links += 1
                 with open(f"{course_title}.txt", 'a') as f:
-                    f.write("\n".join(rexo_list)
+                    f.write("\n".join(rexo_list))
     caption_details = raw_text05.upper().replace("api.cloudflare.net.in","").replace("api.classx.co.in","").replace("api.teachx.co.in","")
     file1 = InputMediaDocument(f"{course_title}.txt", caption=f"**ðŸŒ Batch ID:** {raw_text1}\n**ðŸ“› Batch:** `{course_title}`\n**ðŸ”— Total Links:** {total_links}\n**ðŸ—“ Date:** {time}")
     await bot.send_media_group(my_data, [file1])
